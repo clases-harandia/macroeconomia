@@ -1,0 +1,2053 @@
+<!DOCTYPE html>
+<html lang="es" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MODELOS DEL MULTIPLICADOR DEL INGRESO EN ECONOMÍAS BÁSICAS | Prof. Humberto Arandia Claure | UNIVALLE</title>
+
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- Google Fonts: Inter -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+
+  <!-- FontAwesome 6 -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+  <!-- KaTeX CSS y JS con Auto-Render -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css" crossorigin="anonymous">
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js" crossorigin="anonymous"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js" crossorigin="anonymous"></script>
+
+  <!-- html2pdf.js CDN para exportación directa a PDF -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+
+  <!-- Chart.js CDN -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Inter', 'system-ui', 'sans-serif'],
+          },
+          colors: {
+            brand: {
+              maroon: '#9e0044',
+              maroonHover: '#7d0036',
+              maroonLight: '#fae8f0',
+              bgHeader: '#eeeeee',
+            }
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    html {
+      font-size: 16px;
+    }
+
+    body {
+      font-size: 0.95rem;
+      line-height: 1.6;
+    }
+
+    /* Renderizado general de KaTeX */
+    .katex {
+      font-size: 1.15em !important;
+    }
+
+    /* Escalado ampliado (+20%) para la derivación formal en el tab correspondiente */
+    #tab-derivacion .katex {
+      font-size: 1.38em !important;
+    }
+
+    #tab-derivacion .katex-display .katex {
+      font-size: 1.48em !important;
+    }
+
+    .katex-display {
+      margin: 1.15em 0 !important;
+      overflow-x: auto;
+      overflow-y: hidden;
+      padding: 0.6rem 0.3rem;
+    }
+
+    /* Slider styling con acento institucional */
+    input[type=range] {
+      accent-color: #9e0044;
+    }
+
+    /* Estilo de fila activa en la tabla de casos de estudio */
+    .row-active {
+      border-left: 5px solid #9e0044 !important;
+      background-color: #fdf2f6 !important;
+    }
+
+    /* Botones de pestañas dentro del encabezado */
+    .header-tab-btn {
+      color: #9e0044;
+      border: 1px solid transparent;
+      transition: all 0.2s ease-in-out;
+      font-weight: 700;
+    }
+    .header-tab-btn:hover {
+      background-color: rgba(158, 0, 68, 0.08);
+    }
+    .header-tab-btn.active-tab {
+      background-color: #9e0044 !important;
+      color: #ffffff !important;
+      font-weight: 800;
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.15);
+    }
+
+    /* Modo Aula (Zen) */
+    body.zen-mode header,
+    body.zen-mode footer,
+    body.zen-mode #banner-motivacion {
+      display: none !important;
+    }
+    body.zen-mode main {
+      padding-top: 1rem !important;
+      max-width: 100% !important;
+    }
+
+    /* Clase compacta para reducir un 15% la altura de los recuadros de choques */
+    .shock-card-compact {
+      padding-top: 0.3rem !important;
+      padding-bottom: 0.3rem !important;
+      padding-left: 0.45rem !important;
+      padding-right: 0.45rem !important;
+      min-height: auto !important;
+    }
+
+    /* Altura igualada en desktop reducida en un 30% (~427px frente a los 610px previos) */
+    @media (min-width: 1024px) {
+      .sim-col-equal-height {
+        height: 427px !important;
+        max-height: 427px !important;
+      }
+    }
+  </style>
+</head>
+<body class="bg-slate-50 text-slate-800 font-sans antialiased selection:bg-[#9e0044] selection:text-white">
+
+  <!-- ========================================================================= -->
+  <!-- 1. ENCABEZADO: FONDO #eeeeee, TEXTO #9e0044, PESTAÑAS Y IDENTIDAD         -->
+  <!-- ========================================================================= -->
+  <header style="background-color: #eeeeee; color: #9e0044;" class="sticky top-0 z-50 shadow-md border-b border-stone-300">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3 space-y-3">
+      
+      <!-- Fila Superior: Monograma UV, Título Exacto, Cátedra y Modo Aula -->
+      <div class="flex flex-wrap justify-between items-center gap-3">
+        
+        <div class="flex items-center space-x-3.5">
+          <div style="background-color: #9e0044; color: #eeeeee;" class="w-12 h-12 rounded-xl flex items-center justify-center font-black text-xl shadow border border-stone-300 shrink-0">
+            UV
+          </div>
+          <div>
+            <div class="flex items-center gap-2 flex-wrap">
+              <span style="color: #9e0044;" class="text-[11px] uppercase tracking-wider font-extrabold block">
+                Universidad Privada del Valle (UNIVALLE) · Departamento de Economía
+              </span>
+              <span class="text-[11px] px-2.5 py-0.5 rounded-full bg-[#9e0044]/15 text-[#9e0044] border border-[#9e0044]/30 font-bold">
+                Cátedra: MACROECONOMIA
+              </span>
+            </div>
+            <h1 style="color: #9e0044;" class="text-base sm:text-lg lg:text-xl font-black tracking-tight flex items-center gap-2">
+              MODELOS DEL MULTIPLICADOR DEL INGRESO EN ECONOMÍAS BÁSICAS
+            </h1>
+            <p class="text-xs text-stone-700 font-semibold">
+              Docente Titular: <strong style="color: #9e0044;" class="font-black">Prof. Humberto Arandia Claure - UNIVALLE</strong>
+            </p>
+          </div>
+        </div>
+
+        <!-- Botón Modo Aula (Zen) -->
+        <div class="flex items-center gap-2">
+          <button id="btn-zen" onclick="toggleZenMode()" style="background-color: #9e0044; color: #eeeeee;" class="px-3.5 py-1.5 rounded-lg hover:bg-[#7d0036] font-bold text-xs flex items-center gap-2 transition shadow">
+            <i class="fa-solid fa-expand text-xs"></i>
+            <span id="zen-btn-text">Modo Aula (Zen)</span>
+          </button>
+        </div>
+
+      </div>
+
+      <!-- Fila Inferior: Pestañas de Navegación integradas en el Header -->
+      <nav class="flex items-center justify-between border-t border-stone-300 pt-2.5 overflow-x-auto gap-2" role="tablist">
+        <div class="flex space-x-1.5 shrink-0">
+          <button onclick="cambiarTab('fundamentos')" id="tab-btn-fundamentos" class="header-tab-btn active-tab px-3.5 py-1.5 text-xs sm:text-sm rounded-lg flex items-center gap-1.5">
+            <i class="fa-solid fa-book-open text-xs"></i>
+            <span>1. Fundamentos & Doctrina</span>
+          </button>
+          <button onclick="cambiarTab('derivacion')" id="tab-btn-derivacion" class="header-tab-btn px-3.5 py-1.5 text-xs sm:text-sm rounded-lg flex items-center gap-1.5">
+            <i class="fa-solid fa-square-root-variable text-xs"></i>
+            <span>2. Derivación Formal</span>
+          </button>
+          <button onclick="cambiarTab('empiria')" id="tab-btn-empiria" class="header-tab-btn px-3.5 py-1.5 text-xs sm:text-sm rounded-lg flex items-center gap-1.5">
+            <i class="fa-solid fa-earth-americas text-xs"></i>
+            <span>3. Casos de estudio</span>
+          </button>
+          <button onclick="cambiarTab('simulador')" id="tab-btn-simulador" class="header-tab-btn px-3.5 py-1.5 text-xs sm:text-sm rounded-lg flex items-center gap-1.5">
+            <i class="fa-solid fa-chart-line text-xs"></i>
+            <span>4. Simulador Cruz Keynesiana</span>
+          </button>
+        </div>
+
+        <div class="hidden md:flex items-center gap-2 text-xs font-mono font-bold shrink-0" style="color: #9e0044;">
+          <span class="inline-block w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+          <span>Motor Cuantitativo Dinámico</span>
+        </div>
+      </nav>
+
+    </div>
+  </header>
+
+  <!-- ========================================================================= -->
+  <!-- 2. BANNER DE MOTIVACIÓN: COMPACTO, MINIMALISTA Y ESTILIZADO              -->
+  <!-- ========================================================================= -->
+  <div id="banner-motivacion" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-4">
+    <div class="bg-slate-900 py-2.5 px-5 rounded-xl flex items-center shadow-sm">
+      <span class="text-white font-bold text-lg mr-2">Motivación:</span><span class="text-slate-200 text-lg">El modelo keynesiano</span>
+    </div>
+  </div>
+
+  <!-- Botón flotante para salir del Modo Aula (Zen) -->
+  <button id="floating-exit-zen" onclick="toggleZenMode()" class="hidden fixed bottom-6 right-6 z-50 bg-[#9e0044] text-white px-4 py-2.5 rounded-full shadow-2xl font-black text-xs hover:bg-[#7d0036] transition flex items-center gap-2">
+    <i class="fa-solid fa-compress"></i>
+    Salir de Modo Aula
+  </button>
+
+  <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-5">
+
+    <!-- ========================================================================= -->
+    <!-- 3. SECCIÓN 1: FUNDAMENTOS & DOCTRINA (+10% TAMAÑO DE TEXTO)              -->
+    <!-- ========================================================================= -->
+    <div id="tab-fundamentos" class="tab-pane space-y-6">
+      
+      <div class="border-b border-slate-200 pb-3 flex justify-between items-center">
+        <div>
+          <span class="text-xs uppercase tracking-wider text-[#9e0044] font-black">Unidad I · Historia del Pensamiento Macroeconómico</span>
+          <h2 class="text-xl sm:text-2xl font-black text-slate-900 mt-0.5">1. Fundamentos & Doctrina: El Quiebre de la Ortodoxia</h2>
+        </div>
+        <span class="text-xs bg-slate-100 text-slate-600 px-3 py-1 rounded font-mono font-semibold">1929 - 1936</span>
+      </div>
+
+      <!-- Texto principal con escala tipográfica text-[1.05rem] (+10%) -->
+      <div class="bg-white rounded-xl shadow-sm border border-slate-200 p-6 space-y-5 text-[1.05rem] leading-relaxed text-slate-700">
+        
+        <div class="border-l-4 border-[#9e0044] pl-4 py-1">
+          <p class="font-semibold text-slate-900">
+            La publicación de <em>"The General Theory of Employment, Interest and Money"</em> (1936) por John Maynard Keynes constituyó una auténtica revolución epistemológica frente a la incapacidad del modelo clásico para explicar la persistencia del desempleo masivo durante la Gran Depresión de 1929.
+          </p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-5 mt-4">
+          
+          <div class="bg-slate-50 p-5 rounded-xl border border-slate-200 space-y-2.5">
+            <h3 class="font-black text-slate-900 text-lg flex items-center gap-2">
+              <i class="fa-solid fa-bolt text-[#9e0044]"></i>
+              Ruptura de la Ley de Say
+            </h3>
+            <p>
+              La ortodoxia clásica se fundamentaba en el postulado de Jean-Baptiste Say: <em>"La oferta crea su propia demanda"</em>. En dicho esquema, los precios, los salarios y las tasas de interés se ajustaban de forma instantánea para vaciar los mercados y garantizar el pleno empleo continuo.
+            </p>
+            <p>
+              Keynes invirtió de forma radical esta causalidad: <strong>es la Demanda Efectiva la que determina el nivel de producción y empleo</strong>. Si la demanda planeada es insuficiente, las empresas acumulan inventarios indeseados y recortan producción y personal, generando un <em>equilibrio persistente con subempleo</em>.
+            </p>
+          </div>
+
+          <div class="bg-slate-50 p-5 rounded-xl border border-slate-200 space-y-2.5">
+            <h3 class="font-black text-slate-900 text-lg flex items-center gap-2">
+              <i class="fa-solid fa-water text-blue-600"></i>
+              "Animal Spirits" y Volatilidad
+            </h3>
+            <p>
+              La inversión privada ($\bar{I}$) no es un simple cómputo matemático sobre rendimientos futuros seguros, sino que está condicionada por oleadas de optimismo o pesimismo espontáneo que Keynes denominó <strong>"espíritus animales" (animal spirits)</strong>.
+            </p>
+            <p>
+              En entornos de incertidumbre fundamental, la inversión empresarial se desploma. Esta contracción autónoma deprime la actividad macroeconómica sin que los mecanismos del mercado libre restablezcan el equilibrio de forma automática.
+            </p>
+          </div>
+
+          <div class="bg-slate-50 p-5 rounded-xl border border-slate-200 space-y-2.5">
+            <h3 class="font-black text-slate-900 text-lg flex items-center gap-2">
+              <i class="fa-solid fa-piggy-bank text-emerald-600"></i>
+              La Paradoja de la Frugalidad
+            </h3>
+            <p>
+              Mientras que a escala microeconómica el ahorro constituye un comportamiento prudente, a escala macroeconómica un intento colectivo de ahorrar más (reduciendo el consumo $\bar{C}$) contrae las ventas de las empresas.
+            </p>
+            <p>
+              Al caer las ventas agregadas, se reduce la producción y el ingreso disponible, provocando que el ahorro global final no aumente, pero el sistema quede atrapado en un nivel sustancialmente inferior de producción y ocupación.
+            </p>
+          </div>
+
+          <div class="bg-slate-50 p-5 rounded-xl border border-slate-200 space-y-2.5">
+            <h3 class="font-black text-slate-900 text-lg flex items-center gap-2">
+              <i class="fa-solid fa-shield-halved text-amber-600"></i>
+              Justificación de la Economía Cerrada
+            </h3>
+            <p>
+              El supuesto de economía cerrada ($NX = 0$) en la Gran Depresión no fue un mero artificio analítico, sino un reflejo del colapso del comercio global a raíz de la Ley Arancelaria Smoot-Hawley (1930) y el abandono progresivo del patrón oro.
+            </p>
+            <p>
+              Analíticamente, permite aislar la dinámica interna demostrando que las fallas de demanda efectiva no provienen únicamente de choques externos, sino de las filtraciones endógenas domésticas (el ahorro privado) no compensadas por el gasto autónomo.
+            </p>
+          </div>
+
+        </div>
+
+        <!-- Matriz epistemológica clásica vs. keynesiana -->
+        <div class="mt-6 pt-4 border-t border-slate-200">
+          <h3 class="text-xl font-black text-slate-900 mb-3 flex items-center gap-2">
+            <i class="fa-solid fa-scale-balanced text-[#9e0044]"></i>
+            Matriz Epistemológica: Modelo Clásico vs. Modelo Keynesiano
+          </h3>
+          <div class="overflow-x-auto rounded-xl border border-slate-200">
+            <table class="w-full text-left text-sm divide-y divide-slate-200">
+              <thead class="bg-slate-900 text-white font-bold text-xs uppercase tracking-wider">
+                <tr>
+                  <th class="p-3.5">Dimensión Analítica</th>
+                  <th class="p-3.5 bg-slate-800">Ortodoxia Clásica / Neoclásica</th>
+                  <th class="p-3.5 bg-[#9e0044]">Revolución Keynesiana</th>
+                </tr>
+              </thead>
+              <tbody class="divide-y divide-slate-200 text-slate-700 bg-white">
+                <tr>
+                  <td class="p-3.5 font-bold text-slate-900">Principio Conductor</td>
+                  <td class="p-3.5">Ley de Say: La oferta genera su propia demanda agregada.</td>
+                  <td class="p-3.5 font-bold text-[#9e0044]">Demanda Efectiva: El gasto planeado determina la producción global.</td>
+                </tr>
+                <tr>
+                  <td class="p-3.5 font-bold text-slate-900">Mecanismo de Ajuste</td>
+                  <td class="p-3.5">Precios, salarios y tasas de interés perfectamente flexibles.</td>
+                  <td class="p-3.5">Cantidades producidas y empleo; salarios y precios rígidos a la baja.</td>
+                </tr>
+                <tr>
+                  <td class="p-3.5 font-bold text-slate-900">Mercado Laboral</td>
+                  <td class="p-3.5">Pleno empleo continuo. Todo desempleo es friccional o voluntario.</td>
+                  <td class="p-3.5 font-bold text-rose-700">Desempleo involuntario recurrente ante caídas de demanda efectiva.</td>
+                </tr>
+                <tr>
+                  <td class="p-3.5 font-bold text-slate-900">Rol del Ahorro</td>
+                  <td class="p-3.5">Prerrequisito virtuoso para financiar la acumulación de capital.</td>
+                  <td class="p-3.5">Filtración contractiva del flujo circular (Paradoja de la frugalidad).</td>
+                </tr>
+                <tr>
+                  <td class="p-3.5 font-bold text-slate-900">Política Fiscal</td>
+                  <td class="p-3.5">Presupuesto neutral y equilibrado; el gasto estatal produce desplazamiento total.</td>
+                  <td class="p-3.5 font-bold text-emerald-700">Palanca contracíclica indispensable para cerrar brechas recesivas vía multiplicador.</td>
+                </tr>
+                <tr>
+                  <td class="p-3.5 font-bold text-slate-900">Naturaleza del Dinero</td>
+                  <td class="p-3.5">Velo puramente neutral; simple medio de cambio para transacciones.</td>
+                  <td class="p-3.5">Activo financiero sujeto a incertidumbre y preferencia por la liquidez.</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+
+    <!-- ========================================================================= -->
+    <!-- 4. SECCIÓN 2: DERIVACIÓN FORMAL (BLOQUE A Y BLOQUE B EN KATEX AMPLIADO)  -->
+    <!-- ========================================================================= -->
+    <div id="tab-derivacion" class="tab-pane hidden space-y-6">
+      
+      <div class="border-b border-slate-200 pb-3 flex flex-wrap justify-between items-center gap-3">
+        <div>
+          <span class="text-xs uppercase tracking-wider text-[#9e0044] font-black">Unidad II · Formalización Matemática</span>
+          <h2 class="text-xl sm:text-2xl font-black text-slate-900 mt-0.5">2. Derivación Formal del Modelo y los Multiplicadores</h2>
+        </div>
+        <div class="flex items-center gap-2">
+          <span class="text-xs bg-slate-100 text-slate-600 px-3 py-1 rounded font-mono font-semibold hidden sm:inline-block">KaTeX Engine Escalado (+20%)</span>
+          <!-- Botón Generar PDF -->
+          <button onclick="generarPDFDerivacion()" style="background-color: #9e0044; color: #ffffff;" class="px-4 py-2 rounded-lg font-bold text-xs hover:bg-[#7d0036] transition shadow flex items-center gap-2">
+            <i class="fa-solid fa-file-pdf text-sm"></i>
+            <span>Generar PDF</span>
+          </button>
+        </div>
+      </div>
+
+      <div id="contenido-derivacion-pdf" class="space-y-6">
+        <!-- BLOQUE A: ESTRUCTURA DE COMPORTAMIENTO Y CONSTRUCCIÓN DE DA -->
+        <div class="bg-white rounded-xl shadow-sm border border-slate-200 p-6 space-y-4">
+          <div class="border-b border-slate-100 pb-3 flex items-center justify-between">
+            <h3 class="text-lg font-black text-slate-900 flex items-center gap-2">
+              <span class="w-7 h-7 rounded-lg bg-[#9e0044] text-white flex items-center justify-center text-sm font-black">A</span>
+              BLOQUE A: Ecuaciones de Comportamiento y Construcción de la Demanda Agregada
+            </h3>
+            <span class="text-xs font-mono font-bold text-slate-500">DA(Y) = A₀ + c(1-t)Y</span>
+          </div>
+
+          <p class="text-slate-700 text-sm">
+            En una economía cerrada con sector gubernamental, la <strong>Demanda Agregada ($DA$)</strong> representa el gasto planeado total por las familias, empresas e instituciones públicas:
+          </p>
+
+          <div class="bg-slate-50 p-4 rounded-xl border border-slate-200">
+            $$DA = C + I + G$$
+          </div>
+
+          <p class="text-slate-700 text-sm font-semibold">Definición de las funciones de comportamiento y variables estructurales:</p>
+
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm">
+            <div class="p-3.5 bg-slate-50 rounded-lg border border-slate-200 space-y-2">
+              <p><strong>1. Función de Consumo Keynesiana:</strong></p>
+              $$C = \bar{C} + \textcolor{#9e0044}{c} Y_d \quad \text{con } 0 < \textcolor{#9e0044}{c} < 1$$
+              <p class="text-xs text-slate-500">Donde $\bar{C}$ es el consumo autónomo de subsistencia y $\textcolor{#9e0044}{c}$ es la Propensión Marginal a Consumir (PMgC).</p>
+            </div>
+
+            <div class="p-3.5 bg-slate-50 rounded-lg border border-slate-200 space-y-2">
+              <p><strong>2. Ingreso Disponible de las Familias ($Y_d$):</strong></p>
+              $$Y_d = Y - T + \overline{TR}$$
+              <p class="text-xs text-slate-500">Monto disponible para consumo o ahorro privado tras tributos netos y subsidios estatales.</p>
+            </div>
+
+            <div class="p-3.5 bg-slate-50 rounded-lg border border-slate-200 space-y-2">
+              <p><strong>3. Sistema Tributario con Imposición Proporcional:</strong></p>
+              $$T = \bar{T} + \textcolor{#0284c7}{t} Y \quad \text{con } 0 < \textcolor{#0284c7}{t} < 1$$
+              <p class="text-xs text-slate-500">Donde $\bar{T}$ son tributos de suma fija y $\textcolor{#0284c7}{t}$ es la alícuota marginal impositiva sobre el ingreso nacional.</p>
+            </div>
+
+            <div class="p-3.5 bg-slate-50 rounded-lg border border-slate-200 space-y-2">
+              <p><strong>4. Variables Autónomas y Exógenas:</strong></p>
+              $$I = \bar{I}, \quad G = \bar{G}, \quad TR = \overline{TR}$$
+              <p class="text-xs text-slate-500">Definidas exógenamente por decisiones empresariales autónomas y políticas presupuestarias del Estado.</p>
+            </div>
+          </div>
+
+          <p class="text-slate-700 text-sm mt-3">
+            <strong>Sustitución Algebraica Paso a Paso:</strong> Incorporamos el esquema fiscal en el ingreso disponible y luego en la función de consumo:
+          </p>
+
+          <div class="bg-slate-50 p-4 rounded-xl border border-slate-200 space-y-3">
+            <p class="text-xs font-mono text-slate-600">Paso A.1: Expresión del Ingreso Disponible</p>
+            $$Y_d = Y - (\bar{T} + \textcolor{#0284c7}{t} Y) + \overline{TR} = (1 - \textcolor{#0284c7}{t})Y - \bar{T} + \overline{TR}$$
+
+            <p class="text-xs font-mono text-slate-600">Paso A.2: Función de Consumo Agregado Expandida</p>
+            $$C = \bar{C} + \textcolor{#9e0044}{c}\left[ (1 - \textcolor{#0284c7}{t})Y - \bar{T} + \overline{TR} \right] = \bar{C} - \textcolor{#9e0044}{c}\bar{T} + \textcolor{#9e0044}{c}\overline{TR} + \textcolor{#9e0044}{c}(1 - \textcolor{#0284c7}{t})Y$$
+
+            <p class="text-xs font-mono text-slate-600">Paso A.3: Agrupación en la Ecuación de Demanda Agregada</p>
+            $$DA = \left( \bar{C} - \textcolor{#9e0044}{c}\bar{T} + \textcolor{#9e0044}{c}\overline{TR} + \bar{I} + \bar{G} \right) + \textcolor{#9e0044}{c}(1 - \textcolor{#0284c7}{t})Y$$
+          </div>
+
+          <p class="text-slate-700 text-sm">
+            Definiendo el <strong>Gasto Autónomo Consolidado ($\textcolor{#2563eb}{A_0}$)</strong> como todos los componentes independientes del nivel de renta:
+          </p>
+
+          <div class="bg-rose-50/50 p-4 rounded-xl border border-rose-200">
+            $$\textcolor{#2563eb}{A_0} \equiv \bar{C} - \textcolor{#9e0044}{c}\bar{T} + \textcolor{#9e0044}{c}\overline{TR} + \bar{I} + \bar{G}$$
+            $$\mathbf{DA(Y) = \textcolor{#2563eb}{A_0} + \textcolor{#9e0044}{c}(1 - \textcolor{#0284c7}{t})Y}$$
+          </div>
+
+        </div>
+
+        <!-- BLOQUE B: CONDICIÓN DE EQUILIBRIO, DESPEJE Y MULTIPLICADORES -->
+        <div class="bg-white rounded-xl shadow-sm border border-slate-200 p-6 space-y-4">
+          <div class="border-b border-slate-100 pb-3 flex items-center justify-between">
+            <h3 class="text-lg font-black text-slate-900 flex items-center gap-2">
+              <span class="w-7 h-7 rounded-lg bg-blue-700 text-white flex items-center justify-center text-sm font-black">B</span>
+              BLOQUE B: Condición de Equilibrio, Despeje de $Y^*$ y Multiplicadores
+            </h3>
+            <span class="text-xs font-mono font-bold text-slate-500">Y* = α_G · A₀</span>
+          </div>
+
+          <p class="text-slate-700 text-sm">
+            El equilibrio macroeconómico en el mercado de bienes requiere que la producción total ($Y$) sea exactamente igual a la demanda agregada planeada ($DA$), sin acumulación ni desacumulación involuntaria de inventarios:
+          </p>
+
+          <div class="bg-slate-50 p-4 rounded-xl border border-slate-200">
+            $$\mathbf{Y = DA(Y)}$$
+          </div>
+
+          <p class="text-slate-700 text-sm font-semibold">Despeje algebraico formal del Ingreso de Equilibrio ($Y^*$):</p>
+
+          <div class="bg-slate-50 p-4 rounded-xl border border-slate-200 space-y-3">
+            <p class="text-xs font-mono text-slate-600">Paso B.1: Sustitución de DA(Y)</p>
+            $$Y = \textcolor{#2563eb}{A_0} + \textcolor{#9e0044}{c}(1 - \textcolor{#0284c7}{t})Y$$
+
+            <p class="text-xs font-mono text-slate-600">Paso B.2: Trasposición del término inducido por el consumo</p>
+            $$Y - \textcolor{#9e0044}{c}(1 - \textcolor{#0284c7}{t})Y = \textcolor{#2563eb}{A_0}$$
+
+            <p class="text-xs font-mono text-slate-600">Paso B.3: Factorización de $Y$</p>
+            $$Y \left[ 1 - \textcolor{#9e0044}{c}(1 - \textcolor{#0284c7}{t}) \right] = \textcolor{#2563eb}{A_0}$$
+
+            <p class="text-xs font-mono text-slate-600">Paso B.4: Despeje riguroso del Ingreso de Equilibrio ($Y^*$)</p>
+            $$\mathbf{Y^* = \left( \frac{1}{1 - \textcolor{#9e0044}{c}(1 - \textcolor{#0284c7}{t})} \right) \textcolor{#2563eb}{A_0}}$$
+          </div>
+
+          <!-- Multiplicadores Derivados -->
+          <h4 class="font-bold text-slate-900 text-base mt-4 flex items-center gap-2">
+            <i class="fa-solid fa-arrows-split-up-and-left text-[#9e0044]"></i>
+            Familia de Multiplicadores Derivados
+          </h4>
+
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+            
+            <div class="p-4 bg-slate-50 rounded-xl border border-slate-200 space-y-2">
+              <h5 class="font-bold text-slate-900 text-sm">Multiplicador del Gasto ($\alpha_G$)</h5>
+              $$\alpha_G = \frac{\partial Y^*}{\partial \bar{G}} = \frac{1}{1 - \textcolor{#9e0044}{c}(1 - \textcolor{#0284c7}{t})}$$
+              <p class="text-xs text-slate-500">Mide la amplificación generada por cada unidad de gasto público o inversión en el PIB de equilibrio final.</p>
+            </div>
+
+            <div class="p-4 bg-slate-50 rounded-xl border border-slate-200 space-y-2">
+              <h5 class="font-bold text-slate-900 text-sm">Multiplicador Tributario ($\alpha_T$)</h5>
+              $$\alpha_T = \frac{\partial Y^*}{\partial \bar{T}} = \frac{-\textcolor{#9e0044}{c}}{1 - \textcolor{#9e0044}{c}(1 - \textcolor{#0284c7}{t})}$$
+              <p class="text-xs text-slate-500">Negativo y menor en valor absoluto que $\alpha_G$, puesto que parte del recorte tributario se filtra al ahorro familiar.</p>
+            </div>
+
+            <div class="p-4 bg-slate-50 rounded-xl border border-slate-200 space-y-2">
+              <h5 class="font-bold text-slate-900 text-sm">Multiplicador de Transf. ($\alpha_{TR}$)</h5>
+              $$\alpha_{TR} = \frac{\partial Y^*}{\partial \overline{TR}} = \frac{\textcolor{#9e0044}{c}}{1 - \textcolor{#9e0044}{c}(1 - \textcolor{#0284c7}{t})}$$
+              <p class="text-xs text-slate-500">Análogo al tributario con signo positivo: expande la producción canalizándose a través del ingreso disponible familiar.</p>
+            </div>
+
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+
+    <!-- ========================================================================= -->
+    <!-- 5. SECCIÓN 3: CASOS DE ESTUDIO (ORDEN ESTRICTO DE MENOR A MAYOR INGRESO) -->
+    <!-- ========================================================================= -->
+    <div id="tab-empiria" class="tab-pane hidden space-y-6">
+      
+      <div class="border-b border-slate-200 pb-3 flex justify-between items-center">
+        <div>
+          <span class="text-xs uppercase tracking-wider text-[#9e0044] font-black">Unidad III · Análisis Comparado</span>
+          <h2 class="text-xl sm:text-2xl font-black text-slate-900 mt-0.5">3. Casos de estudio: Calibración Empírica</h2>
+        </div>
+        <span class="text-xs bg-slate-100 text-slate-600 px-3 py-1 rounded font-mono font-semibold">Orden: Menor a Mayor Ingreso</span>
+      </div>
+
+      <div class="bg-white rounded-xl shadow-sm border border-slate-200 overflow-hidden">
+        <div class="overflow-x-auto">
+          <table class="w-full text-left text-sm" id="tabla-economias">
+            <thead class="bg-slate-900 text-white font-bold text-xs uppercase tracking-wider">
+              <tr>
+                <th class="p-3.5">País</th>
+                <th class="p-3.5 text-right">PIB per cápita (USD)</th>
+                <th class="p-3.5">Clasificación Banco Mundial</th>
+                <th class="p-3.5 text-center">c (PMgC)</th>
+                <th class="p-3.5 text-center">t (Tasa)</th>
+                <th class="p-3.5 text-center">$\alpha_G$ (Multiplicador)</th>
+                <th class="p-3.5">Estabilizadores Automáticos y Mecanismo</th>
+                <th class="p-3.5 text-right">Acción</th>
+              </tr>
+            </thead>
+            <tbody class="divide-y divide-slate-200 text-slate-700">
+              
+              <!-- 1. INGRESO BAJO -->
+              <tr id="row-burundi" class="row-pais hover:bg-rose-50/40 transition">
+                <td class="p-3.5 font-bold text-slate-900">Burundi</td>
+                <td class="p-3.5 text-right font-mono font-bold text-slate-700">$250</td>
+                <td class="p-3.5">
+                  <span class="px-2 py-0.5 rounded text-[11px] font-bold bg-red-100 text-red-900 border border-red-300">
+                    Ingreso Bajo
+                  </span>
+                </td>
+                <td class="p-3.5 text-center font-mono font-bold text-blue-600">0.94</td>
+                <td class="p-3.5 text-center font-mono font-bold text-slate-700">0.12</td>
+                <td class="p-3.5 text-center font-mono font-black text-emerald-700 text-base">5.79</td>
+                <td class="p-3.5 text-xs text-slate-600">Extrema Vulnerabilidad: Margen de ahorro prácticamente nulo ($c \approx 0.94$); casi la totalidad del ingreso se vuelca a subsistencia.</td>
+                <td class="p-3.5 text-right">
+                  <button onclick="cargarPreset(0.94, 0.12, 80, 40, 90, 15, 10, 'Burundi', 'row-burundi')" style="background-color: #9e0044;" class="px-3 py-1.5 rounded text-xs font-bold text-white hover:bg-[#7d0036] transition shadow-sm whitespace-nowrap">
+                    Cargar en Simulador
+                  </button>
+                </td>
+              </tr>
+
+              <tr id="row-sudansur" class="row-pais hover:bg-rose-50/40 transition">
+                <td class="p-3.5 font-bold text-slate-900">Sudán del Sur</td>
+                <td class="p-3.5 text-right font-mono font-bold text-slate-700">$450</td>
+                <td class="p-3.5">
+                  <span class="px-2 py-0.5 rounded text-[11px] font-bold bg-red-100 text-red-900 border border-red-300">
+                    Ingreso Bajo
+                  </span>
+                </td>
+                <td class="p-3.5 text-center font-mono font-bold text-blue-600">0.93</td>
+                <td class="p-3.5 text-center font-mono font-bold text-slate-700">0.10</td>
+                <td class="p-3.5 text-center font-mono font-black text-emerald-700 text-base">6.13</td>
+                <td class="p-3.5 text-xs text-slate-600">Fragilidad Crónica: Dependencia monoexportadora de crudo con base tributaria formal mínima y consumo volcado a subsistencia.</td>
+                <td class="p-3.5 text-right">
+                  <button onclick="cargarPreset(0.93, 0.10, 85, 45, 95, 15, 10, 'Sudán del Sur', 'row-sudansur')" style="background-color: #9e0044;" class="px-3 py-1.5 rounded text-xs font-bold text-white hover:bg-[#7d0036] transition shadow-sm whitespace-nowrap">
+                    Cargar en Simulador
+                  </button>
+                </td>
+              </tr>
+
+              <tr id="row-yemen" class="row-pais hover:bg-rose-50/40 transition">
+                <td class="p-3.5 font-bold text-slate-900">Yemen</td>
+                <td class="p-3.5 text-right font-mono font-bold text-slate-700">$650</td>
+                <td class="p-3.5">
+                  <span class="px-2 py-0.5 rounded text-[11px] font-bold bg-red-100 text-red-900 border border-red-300">
+                    Ingreso Bajo
+                  </span>
+                </td>
+                <td class="p-3.5 text-center font-mono font-bold text-blue-600">0.95</td>
+                <td class="p-3.5 text-center font-mono font-bold text-slate-700">0.08</td>
+                <td class="p-3.5 text-center font-mono font-black text-emerald-700 text-base">7.94</td>
+                <td class="p-3.5 text-xs text-slate-600">Colapso Estructural: Economía en crisis institucional; recaudación fiscal mínima y consumo estrictamente en supervivencia básica.</td>
+                <td class="p-3.5 text-right">
+                  <button onclick="cargarPreset(0.95, 0.08, 75, 30, 80, 10, 10, 'Yemen', 'row-yemen')" style="background-color: #9e0044;" class="px-3 py-1.5 rounded text-xs font-bold text-white hover:bg-[#7d0036] transition shadow-sm whitespace-nowrap">
+                    Cargar en Simulador
+                  </button>
+                </td>
+              </tr>
+
+              <!-- 2. INGRESO MEDIO BAJO -->
+              <tr id="row-india" class="row-pais hover:bg-rose-50/40 transition">
+                <td class="p-3.5 font-bold text-slate-900">India</td>
+                <td class="p-3.5 text-right font-mono font-bold text-slate-700">$2,750</td>
+                <td class="p-3.5">
+                  <span class="px-2 py-0.5 rounded text-[11px] font-bold bg-amber-100 text-amber-900 border border-amber-300">
+                    Ingreso Medio Bajo
+                  </span>
+                </td>
+                <td class="p-3.5 text-center font-mono font-bold text-blue-600">0.78</td>
+                <td class="p-3.5 text-center font-mono font-bold text-slate-700">0.17</td>
+                <td class="p-3.5 text-center font-mono font-black text-emerald-700 text-base">2.84</td>
+                <td class="p-3.5 text-xs text-slate-600">Moderado: Elevada propensión marginal a consumir en sectores medios y bajos; estabilizador tributario en consolidación mediante GST.</td>
+                <td class="p-3.5 text-right">
+                  <button onclick="cargarPreset(0.78, 0.17, 160, 140, 190, 50, 30, 'India', 'row-india')" style="background-color: #9e0044;" class="px-3 py-1.5 rounded text-xs font-bold text-white hover:bg-[#7d0036] transition shadow-sm whitespace-nowrap">
+                    Cargar en Simulador
+                  </button>
+                </td>
+              </tr>
+
+              <tr id="row-bolivia" class="row-pais row-active transition">
+                <td class="p-3.5 font-bold text-slate-900">Bolivia (Cátedra)</td>
+                <td class="p-3.5 text-right font-mono font-bold text-[#9e0044]">$4,200</td>
+                <td class="p-3.5">
+                  <span class="px-2 py-0.5 rounded text-[11px] font-bold bg-amber-100 text-amber-900 border border-amber-300">
+                    Ingreso Medio Bajo
+                  </span>
+                </td>
+                <td class="p-3.5 text-center font-mono font-bold text-blue-600">0.82</td>
+                <td class="p-3.5 text-center font-mono font-bold text-slate-700">0.14</td>
+                <td class="p-3.5 text-center font-mono font-black text-emerald-700 text-base">3.39</td>
+                <td class="p-3.5 text-xs text-slate-600">Muy Débil: Alta propensión marginal al consumo y reducida recaudación directa formal generan fuerte amplificación de choques exógenos.</td>
+                <td class="p-3.5 text-right">
+                  <button onclick="cargarPreset(0.82, 0.14, 120, 100, 150, 40, 25, 'Bolivia (Cátedra)', 'row-bolivia')" style="background-color: #9e0044;" class="px-3 py-1.5 rounded text-xs font-bold text-white hover:bg-[#7d0036] transition shadow-sm whitespace-nowrap">
+                    Cargar en Simulador
+                  </button>
+                </td>
+              </tr>
+
+              <tr id="row-vietnam" class="row-pais hover:bg-rose-50/40 transition">
+                <td class="p-3.5 font-bold text-slate-900">Vietnam</td>
+                <td class="p-3.5 text-right font-mono font-bold text-slate-700">$4,600</td>
+                <td class="p-3.5">
+                  <span class="px-2 py-0.5 rounded text-[11px] font-bold bg-amber-100 text-amber-900 border border-amber-300">
+                    Ingreso Medio Bajo
+                  </span>
+                </td>
+                <td class="p-3.5 text-center font-mono font-bold text-blue-600">0.75</td>
+                <td class="p-3.5 text-center font-mono font-bold text-slate-700">0.19</td>
+                <td class="p-3.5 text-center font-mono font-black text-emerald-700 text-base">2.55</td>
+                <td class="p-3.5 text-xs text-slate-600">Intermedio: Rápida transición industrial con ahorro precautorio de hogares y estabilización fiscal afianzada en imposición corporativa.</td>
+                <td class="p-3.5 text-right">
+                  <button onclick="cargarPreset(0.75, 0.19, 145, 130, 175, 45, 25, 'Vietnam', 'row-vietnam')" style="background-color: #9e0044;" class="px-3 py-1.5 rounded text-xs font-bold text-white hover:bg-[#7d0036] transition shadow-sm whitespace-nowrap">
+                    Cargar en Simulador
+                  </button>
+                </td>
+              </tr>
+
+              <!-- 3. INGRESO MEDIO ALTO -->
+              <tr id="row-paraguay" class="row-pais hover:bg-rose-50/40 transition">
+                <td class="p-3.5 font-bold text-slate-900">Paraguay</td>
+                <td class="p-3.5 text-right font-mono font-bold text-slate-700">$6,200</td>
+                <td class="p-3.5">
+                  <span class="px-2 py-0.5 rounded text-[11px] font-bold bg-sky-100 text-sky-900 border border-sky-300">
+                    Ingreso Medio Alto
+                  </span>
+                </td>
+                <td class="p-3.5 text-center font-mono font-bold text-blue-600">0.80</td>
+                <td class="p-3.5 text-center font-mono font-bold text-slate-700">0.12</td>
+                <td class="p-3.5 text-center font-mono font-black text-emerald-700 text-base">3.38</td>
+                <td class="p-3.5 text-xs text-slate-600">Débil: Esquema tributario de tasa plana reducida (10%) que brinda limitada absorción endógena frente a oscilaciones de demanda.</td>
+                <td class="p-3.5 text-right">
+                  <button onclick="cargarPreset(0.80, 0.12, 110, 95, 135, 30, 20, 'Paraguay', 'row-paraguay')" style="background-color: #9e0044;" class="px-3 py-1.5 rounded text-xs font-bold text-white hover:bg-[#7d0036] transition shadow-sm whitespace-nowrap">
+                    Cargar en Simulador
+                  </button>
+                </td>
+              </tr>
+
+              <tr id="row-colombia" class="row-pais hover:bg-rose-50/40 transition">
+                <td class="p-3.5 font-bold text-slate-900">Colombia</td>
+                <td class="p-3.5 text-right font-mono font-bold text-slate-700">$7,300</td>
+                <td class="p-3.5">
+                  <span class="px-2 py-0.5 rounded text-[11px] font-bold bg-sky-100 text-sky-900 border border-sky-300">
+                    Ingreso Medio Alto
+                  </span>
+                </td>
+                <td class="p-3.5 text-center font-mono font-bold text-blue-600">0.74</td>
+                <td class="p-3.5 text-center font-mono font-bold text-slate-700">0.20</td>
+                <td class="p-3.5 text-center font-mono font-black text-emerald-700 text-base">2.45</td>
+                <td class="p-3.5 text-xs text-slate-600">Intermedio: Presión fiscal moderada con institucionalidad de regla fiscal que restringe desviaciones estructurales del balance público.</td>
+                <td class="p-3.5 text-right">
+                  <button onclick="cargarPreset(0.74, 0.20, 130, 110, 160, 45, 25, 'Colombia', 'row-colombia')" style="background-color: #9e0044;" class="px-3 py-1.5 rounded text-xs font-bold text-white hover:bg-[#7d0036] transition shadow-sm whitespace-nowrap">
+                    Cargar en Simulador
+                  </button>
+                </td>
+              </tr>
+
+              <tr id="row-peru" class="row-pais hover:bg-rose-50/40 transition">
+                <td class="p-3.5 font-bold text-slate-900">Perú</td>
+                <td class="p-3.5 text-right font-mono font-bold text-slate-700">$8,200</td>
+                <td class="p-3.5">
+                  <span class="px-2 py-0.5 rounded text-[11px] font-bold bg-sky-100 text-sky-900 border border-sky-300">
+                    Ingreso Medio Alto
+                  </span>
+                </td>
+                <td class="p-3.5 text-center font-mono font-bold text-blue-600">0.72</td>
+                <td class="p-3.5 text-center font-mono font-bold text-slate-700">0.18</td>
+                <td class="p-3.5 text-center font-mono font-black text-emerald-700 text-base">2.44</td>
+                <td class="p-3.5 text-xs text-slate-600">Intermedio: Alta disciplina macrofiscal y fondos de estabilización fiscal, amortiguados por una amplia informalidad económica interna.</td>
+                <td class="p-3.5 text-right">
+                  <button onclick="cargarPreset(0.72, 0.18, 125, 105, 155, 40, 20, 'Perú', 'row-peru')" style="background-color: #9e0044;" class="px-3 py-1.5 rounded text-xs font-bold text-white hover:bg-[#7d0036] transition shadow-sm whitespace-nowrap">
+                    Cargar en Simulador
+                  </button>
+                </td>
+              </tr>
+
+              <!-- 4. INGRESO ALTO -->
+              <tr id="row-chile" class="row-pais hover:bg-rose-50/40 transition">
+                <td class="p-3.5 font-bold text-slate-900">Chile</td>
+                <td class="p-3.5 text-right font-mono font-bold text-slate-700">$16,500</td>
+                <td class="p-3.5">
+                  <span class="px-2 py-0.5 rounded text-[11px] font-bold bg-emerald-100 text-emerald-900 border border-emerald-300">
+                    Ingreso Alto
+                  </span>
+                </td>
+                <td class="p-3.5 text-center font-mono font-bold text-blue-600">0.68</td>
+                <td class="p-3.5 text-center font-mono font-bold text-slate-700">0.22</td>
+                <td class="p-3.5 text-center font-mono font-black text-emerald-700 text-base">2.13</td>
+                <td class="p-3.5 text-xs text-slate-600">Medio-Alto: Mayor capacidad de ahorro financiero institucional y regla de balance estructural basada en el precio tendencial del cobre.</td>
+                <td class="p-3.5 text-right">
+                  <button onclick="cargarPreset(0.68, 0.22, 140, 120, 170, 50, 30, 'Chile', 'row-chile')" style="background-color: #9e0044;" class="px-3 py-1.5 rounded text-xs font-bold text-white hover:bg-[#7d0036] transition shadow-sm whitespace-nowrap">
+                    Cargar en Simulador
+                  </button>
+                </td>
+              </tr>
+
+              <tr id="row-alemania" class="row-pais hover:bg-rose-50/40 transition">
+                <td class="p-3.5 font-bold text-slate-900">Alemania</td>
+                <td class="p-3.5 text-right font-mono font-bold text-slate-700">$54,000</td>
+                <td class="p-3.5">
+                  <span class="px-2 py-0.5 rounded text-[11px] font-bold bg-emerald-100 text-emerald-900 border border-emerald-300">
+                    Ingreso Alto
+                  </span>
+                </td>
+                <td class="p-3.5 text-center font-mono font-bold text-blue-600">0.55</td>
+                <td class="p-3.5 text-center font-mono font-bold text-slate-700">0.40</td>
+                <td class="p-3.5 text-center font-mono font-black text-emerald-700 text-base">1.49</td>
+                <td class="p-3.5 text-xs text-slate-600">Muy Fuerte: Estado de bienestar integral con elevada tasa impositiva marginal ($t = 0.40$) que aplana la pendiente de la Demanda Agregada.</td>
+                <td class="p-3.5 text-right">
+                  <button onclick="cargarPreset(0.55, 0.40, 210, 180, 250, 100, 50, 'Alemania', 'row-alemania')" style="background-color: #9e0044;" class="px-3 py-1.5 rounded text-xs font-bold text-white hover:bg-[#7d0036] transition shadow-sm whitespace-nowrap">
+                    Cargar en Simulador
+                  </button>
+                </td>
+              </tr>
+
+              <tr id="row-usa" class="row-pais hover:bg-rose-50/40 transition">
+                <td class="p-3.5 font-bold text-slate-900">Estados Unidos</td>
+                <td class="p-3.5 text-right font-mono font-bold text-slate-700">$85,000</td>
+                <td class="p-3.5">
+                  <span class="px-2 py-0.5 rounded text-[11px] font-bold bg-emerald-100 text-emerald-900 border border-emerald-300">
+                    Ingreso Alto
+                  </span>
+                </td>
+                <td class="p-3.5 text-center font-mono font-bold text-blue-600">0.62</td>
+                <td class="p-3.5 text-center font-mono font-bold text-slate-700">0.28</td>
+                <td class="p-3.5 text-center font-mono font-black text-emerald-700 text-base">1.81</td>
+                <td class="p-3.5 text-xs text-slate-600">Fuerte: Sistema de progresividad impositiva y seguro de desempleo automático que absorben con rapidez caídas cíclicas de la renta.</td>
+                <td class="p-3.5 text-right">
+                  <button onclick="cargarPreset(0.62, 0.28, 180, 160, 220, 75, 40, 'Estados Unidos', 'row-usa')" style="background-color: #9e0044;" class="px-3 py-1.5 rounded text-xs font-bold text-white hover:bg-[#7d0036] transition shadow-sm whitespace-nowrap">
+                    Cargar en Simulador
+                  </button>
+                </td>
+              </tr>
+
+              <tr id="row-singapur" class="row-pais hover:bg-rose-50/40 transition">
+                <td class="p-3.5 font-bold text-slate-900">Singapur</td>
+                <td class="p-3.5 text-right font-mono font-bold text-slate-700">$88,000</td>
+                <td class="p-3.5">
+                  <span class="px-2 py-0.5 rounded text-[11px] font-bold bg-emerald-100 text-emerald-900 border border-emerald-300">
+                    Ingreso Alto
+                  </span>
+                </td>
+                <td class="p-3.5 text-center font-mono font-bold text-blue-600">0.45</td>
+                <td class="p-3.5 text-center font-mono font-bold text-slate-700">0.15</td>
+                <td class="p-3.5 text-center font-mono font-black text-emerald-700 text-base">1.62</td>
+                <td class="p-3.5 text-xs text-slate-600">Ahorro Forzoso: Reducida tasa tributaria formal contrarrestada por ahorro previsional obligatorio (CPF), conteniendo filtraciones de consumo.</td>
+                <td class="p-3.5 text-right">
+                  <button onclick="cargarPreset(0.45, 0.15, 200, 210, 190, 40, 20, 'Singapur', 'row-singapur')" style="background-color: #9e0044;" class="px-3 py-1.5 rounded text-xs font-bold text-white hover:bg-[#7d0036] transition shadow-sm whitespace-nowrap">
+                    Cargar en Simulador
+                  </button>
+                </td>
+              </tr>
+
+              <tr id="row-suiza" class="row-pais hover:bg-rose-50/40 transition">
+                <td class="p-3.5 font-bold text-slate-900">Suiza</td>
+                <td class="p-3.5 text-right font-mono font-bold text-slate-700">$105,000</td>
+                <td class="p-3.5">
+                  <span class="px-2 py-0.5 rounded text-[11px] font-bold bg-emerald-100 text-emerald-900 border border-emerald-300">
+                    Ingreso Alto
+                  </span>
+                </td>
+                <td class="p-3.5 text-center font-mono font-bold text-blue-600">0.50</td>
+                <td class="p-3.5 text-center font-mono font-bold text-slate-700">0.28</td>
+                <td class="p-3.5 text-center font-mono font-black text-emerald-700 text-base">1.56</td>
+                <td class="p-3.5 text-xs text-slate-600">Muy Fuerte: Alta propensión marginal al ahorro privado, regla constitucional de freno a la deuda (<em>Schuldenbremse</em>) y solidez financiera.</td>
+                <td class="p-3.5 text-right">
+                  <button onclick="cargarPreset(0.50, 0.28, 220, 190, 230, 85, 40, 'Suiza', 'row-suiza')" style="background-color: #9e0044;" class="px-3 py-1.5 rounded text-xs font-bold text-white hover:bg-[#7d0036] transition shadow-sm whitespace-nowrap">
+                    Cargar en Simulador
+                  </button>
+                </td>
+              </tr>
+
+            </tbody>
+            <!-- Fila de pie de tabla con botones de gráfico scatter emergente -->
+            <tfoot class="bg-slate-100/80 border-t-2 border-slate-300">
+              <tr>
+                <td colspan="3" class="p-3 text-xs font-bold text-slate-600 uppercase tracking-wider text-right">
+                  <i class="fa-solid fa-chart-line text-[#9e0044] mr-1"></i> Análisis de Dispersión vs. PIB pc:
+                </td>
+                <td class="p-2 text-center">
+                  <button onclick="abrirModalScatter('c')" class="w-full px-2 py-1.5 bg-[#9e0044] hover:bg-[#7d0036] text-white text-[11px] font-extrabold rounded-lg shadow-sm transition flex items-center justify-center gap-1">
+                    <i class="fa-solid fa-braille text-[10px]"></i>
+                    <span>Ver Dispersión</span>
+                  </button>
+                </td>
+                <td class="p-2 text-center">
+                  <button onclick="abrirModalScatter('t')" class="w-full px-2 py-1.5 bg-[#9e0044] hover:bg-[#7d0036] text-white text-[11px] font-extrabold rounded-lg shadow-sm transition flex items-center justify-center gap-1">
+                    <i class="fa-solid fa-braille text-[10px]"></i>
+                    <span>Ver Dispersión</span>
+                  </button>
+                </td>
+                <td class="p-2 text-center">
+                  <button onclick="abrirModalScatter('alpha')" class="w-full px-2 py-1.5 bg-[#9e0044] hover:bg-[#7d0036] text-white text-[11px] font-extrabold rounded-lg shadow-sm transition flex items-center justify-center gap-1">
+                    <i class="fa-solid fa-braille text-[10px]"></i>
+                    <span>Ver Dispersión</span>
+                  </button>
+                </td>
+                <td colspan="2" class="p-3 text-xs text-slate-500 italic">
+                  Ajuste econométrico MCO con estimación muestral de $R^2$.
+                </td>
+              </tr>
+            </tfoot>
+          </table>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- MODAL EMERGENTE (75% DE PANTALLA) PARA DIAGRAMAS DE DISPERSIÓN Y REGRESIÓN -->
+    <div id="modal-scatter-overlay" class="fixed inset-0 z-50 bg-slate-900/70 backdrop-blur-sm hidden flex items-center justify-center p-4">
+      <div class="bg-white rounded-2xl shadow-2xl border border-slate-200 w-[75vw] h-[75vh] flex flex-col overflow-hidden animate-in fade-in zoom-in-95 duration-200">
+        
+        <!-- Header del Modal -->
+        <div class="px-6 py-4 bg-[#eeeeee] border-b border-stone-300 flex justify-between items-center shrink-0">
+          <div class="flex items-center space-x-3">
+            <div class="w-9 h-9 rounded-lg bg-[#9e0044] text-white flex items-center justify-center font-bold text-sm shadow">
+              <i class="fa-solid fa-chart-line"></i>
+            </div>
+            <div>
+              <h3 id="modal-scatter-title" class="text-base sm:text-lg font-black text-[#9e0044] leading-tight">
+                Diagrama de Dispersión
+              </h3>
+              <p class="text-xs text-stone-600 font-semibold">
+                Análisis Econométrico Transversal · Muestra de 14 Economías
+              </p>
+            </div>
+          </div>
+          
+          <div class="flex items-center gap-3">
+            <!-- Badge que muestra estrictamente solo el R^2 -->
+            <div class="px-3.5 py-1.5 rounded-xl bg-white border border-stone-300 shadow-sm flex items-center gap-1.5 font-mono">
+              <span class="text-xs font-bold text-slate-500">Ajuste Lineal:</span>
+              <span id="badge-r2-val" class="text-sm font-black text-[#9e0044]">$R^2 = 0.00$</span>
+            </div>
+
+            <!-- Botón Cerrar (Cruz) -->
+            <button onclick="cerrarModalScatter()" class="w-9 h-9 rounded-xl text-slate-500 hover:text-slate-800 hover:bg-stone-200 transition flex items-center justify-center text-base" title="Cerrar ventana">
+              <i class="fa-solid fa-xmark"></i>
+            </button>
+          </div>
+        </div>
+
+        <!-- Cuerpo del Modal: Canvas del Gráfico Scatter -->
+        <div class="flex-1 p-5 relative overflow-hidden bg-white">
+          <canvas id="scatterChartCanvas"></canvas>
+        </div>
+
+        <!-- Footer del Modal -->
+        <div class="px-6 py-3 bg-slate-50 border-t border-slate-200 flex justify-between items-center shrink-0 text-xs">
+          <span class="text-slate-500 font-medium">
+            <i class="fa-solid fa-circle-info text-[#9e0044] mr-1"></i> Eje X: PIB per cápita (USD) · Línea segmentada: Regresión MCO
+          </span>
+          <button onclick="cerrarModalScatter()" class="px-4 py-2 bg-slate-800 hover:bg-slate-900 text-white font-bold rounded-lg transition shadow-sm flex items-center gap-1.5">
+            <i class="fa-solid fa-xmark"></i>
+            <span>Cerrar</span>
+          </button>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- ========================================================================= -->
+    <!-- 6. SECCIÓN 4: SIMULADOR CRUZ KEYNESIANA (CHART.JS CON ALTURA IGUALADA)    -->
+    <!-- ========================================================================= -->
+    <div id="tab-simulador" class="tab-pane hidden space-y-4">
+      
+      <!-- Barra superior de estado -->
+      <div class="border-b border-slate-200 pb-3 flex flex-wrap justify-between items-center gap-3">
+        <div>
+          <span class="text-xs uppercase tracking-wider text-[#9e0044] font-black">Unidad IV · Laboratorio Cuantitativo Interactivo</span>
+          <h2 class="text-xl sm:text-2xl font-black text-slate-900 mt-0.5">4. Simulador Dinámico de la Cruz Keynesiana</h2>
+        </div>
+        <div class="flex items-center gap-2 flex-wrap">
+          <span id="badge-pais" class="px-3.5 py-1 bg-rose-50 text-[#9e0044] font-bold text-xs rounded-full border border-rose-200">
+            Economía Seleccionada: Bolivia (Cátedra)
+          </span>
+          <button onclick="fijarComoLineaBase()" class="px-3 py-1 bg-blue-50 hover:bg-blue-100 text-blue-800 text-xs font-bold rounded-lg transition border border-blue-200">
+            <i class="fa-solid fa-anchor mr-1"></i> Fijar como Línea Base
+          </button>
+          <button onclick="resetearValores()" class="px-3 py-1 bg-slate-200 hover:bg-slate-300 text-slate-800 text-xs font-bold rounded-lg transition">
+            <i class="fa-solid fa-rotate-left mr-1"></i> Resetear Estándar
+          </button>
+        </div>
+      </div>
+
+      <!-- LAYOUT DEL SIMULADOR: 3 COLUMNAS CON ALTURA EXACTAMENTE IGUALADA EN DESKTOP (sim-col-equal-height) -->
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-3 items-stretch">
+        
+        <!-- COLUMNA 1: PANEL LATERAL DE PARÁMETROS Y CHOQUES (lg:col-span-3 xl:col-span-3 lg:w-[13.5rem] w-full) -->
+        <div class="lg:col-span-3 xl:col-span-3 sim-col-equal-height bg-white rounded-xl shadow-sm border border-slate-200 p-2 flex flex-col justify-between overflow-y-auto">
+          
+          <!-- Encabezado y Parámetros -->
+          <div class="space-y-1">
+            <div class="border-b border-slate-100 pb-0.5 flex justify-between items-center">
+              <h3 class="font-bold text-slate-900 text-[12.5px] uppercase tracking-wider">Parámetros</h3>
+              <span class="text-[11px] text-emerald-700 bg-emerald-50 px-1 py-0.2 rounded font-mono font-bold">Base</span>
+            </div>
+
+            <!-- Variables Modelo: PMgC (c) y Autónomas -->
+            <div class="space-y-1">
+              <div class="grid grid-cols-2 gap-1 text-xs">
+                <!-- PMgC (c) adaptada con la etiqueta estricta 'PMgC ($c$)' y SIN el texto '0 < c < 1' -->
+                <div class="bg-rose-50/40 p-1 rounded-lg border border-rose-200">
+                  <label for="input-c" class="text-slate-900 font-bold text-[12px] block leading-none mb-0.5">PMgC ($c$):</label>
+                  <input type="number" id="input-c" min="0.05" max="0.99" step="0.01" value="0.82" class="w-full px-1.5 py-0.5 text-[14px] font-mono font-black text-[#9e0044] bg-white border border-rose-300 rounded focus:ring-1 focus:ring-[#9e0044]" oninput="actualizarModelo()">
+                </div>
+
+                <!-- Alícuota Impositiva Inicial (t) en Porcentaje -->
+                <div class="bg-sky-50/50 p-1 rounded-lg border border-sky-200">
+                  <div class="flex justify-between items-center mb-0.5">
+                    <label for="input-t-rate" class="text-slate-900 font-bold text-[12px] block leading-none">Alícuota ($t$):</label>
+                    <span class="text-[10px] font-mono text-sky-700 font-bold">%</span>
+                  </div>
+                  <input type="number" id="input-t-rate" min="0" max="90" step="0.5" value="14.0" class="w-full px-1.5 py-0.5 text-[14px] font-mono font-black text-sky-800 bg-white border border-sky-300 rounded focus:ring-1 focus:ring-sky-600" oninput="actualizarModelo()">
+                </div>
+
+                <div>
+                  <label for="input-c0" class="text-slate-600 block text-[11.5px] font-medium leading-none mb-0.5">Consumo $\bar{C}$</label>
+                  <input type="number" id="input-c0" value="120" step="5" class="w-full px-1 py-0.5 text-[12.5px] font-mono font-bold bg-slate-50 border border-slate-300 rounded focus:ring-1 focus:ring-[#9e0044]" oninput="actualizarModelo()">
+                </div>
+                <div>
+                  <label for="input-i0" class="text-slate-600 block text-[11.5px] font-medium leading-none mb-0.5">Inversión $\bar{I}$</label>
+                  <input type="number" id="input-i0" value="100" step="5" class="w-full px-1 py-0.5 text-[12.5px] font-mono font-bold bg-slate-50 border border-slate-300 rounded focus:ring-1 focus:ring-[#9e0044]" oninput="actualizarModelo()">
+                </div>
+                <div>
+                  <label for="input-g0" class="text-slate-600 block text-[11.5px] font-medium leading-none mb-0.5">Gasto $\bar{G}$</label>
+                  <input type="number" id="input-g0" value="150" step="5" class="w-full px-1 py-0.5 text-[12.5px] font-mono font-bold bg-slate-50 border border-slate-300 rounded focus:ring-1 focus:ring-[#9e0044]" oninput="actualizarModelo()">
+                </div>
+                <div>
+                  <label for="input-t0" class="text-slate-600 block text-[11.5px] font-medium leading-none mb-0.5">Impuesto $\bar{T}$</label>
+                  <input type="number" id="input-t0" value="40" step="5" class="w-full px-1 py-0.5 text-[12.5px] font-mono font-bold bg-slate-50 border border-slate-300 rounded focus:ring-1 focus:ring-[#9e0044]" oninput="actualizarModelo()">
+                </div>
+                <div class="col-span-2">
+                  <label for="input-tr0" class="text-slate-600 block text-[11.5px] font-medium leading-none mb-0.5">Transf. $\overline{TR}$</label>
+                  <input type="number" id="input-tr0" value="25" step="5" class="w-full px-1 py-0.5 text-[12.5px] font-mono font-bold bg-slate-50 border border-slate-300 rounded focus:ring-1 focus:ring-[#9e0044]" oninput="actualizarModelo()">
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- SECCIÓN DE CHOQUES: COMPACTADA PROPORCIONALMENTE -->
+          <div class="border-t border-slate-100 pt-1 space-y-0.5">
+            <div class="flex justify-between items-center">
+              <h4 class="text-[11.5px] font-bold text-slate-500 uppercase tracking-wider">Choques</h4>
+              <button onclick="restablecerChoques()" class="text-[10.5px] text-[#9e0044] hover:underline font-bold">
+                <i class="fa-solid fa-rotate-left mr-0.5"></i> Reiniciar
+              </button>
+            </div>
+
+            <!-- 1. Choque Gasto Público (\Delta G) -->
+            <div class="shock-card-compact bg-slate-50 rounded border border-slate-200 text-xs">
+              <div class="flex justify-between items-center">
+                <label for="input-shock-g-num" class="font-bold text-slate-700 text-[11.5px]">Gasto ($\Delta \bar{G}$):</label>
+                <div class="flex items-center gap-0.5">
+                  <input type="number" id="input-shock-g-num" min="-300" max="300" step="10" value="0" class="w-[4.5rem] px-1 py-0 text-right font-mono font-bold text-emerald-700 bg-white border border-slate-300 rounded text-[12px]" oninput="sincronizarShock('g', this.value, true)">
+                  <span class="text-[10px] font-mono text-slate-400">UM</span>
+                </div>
+              </div>
+              <input type="range" id="input-shock-g" min="-300" max="300" step="10" value="0" class="w-full cursor-pointer h-1 bg-slate-200 rounded-lg accent-emerald-600 block mt-0.5" oninput="sincronizarShock('g', this.value, false)">
+            </div>
+
+            <!-- 2. Choque de Alícuota Impositiva (\Delta t) expresado en porcentaje -->
+            <div class="shock-card-compact bg-slate-50 rounded border border-slate-200 text-xs">
+              <div class="flex justify-between items-center">
+                <label for="input-shock-t-num" class="font-bold text-slate-700 text-[11.5px]">Alícuota ($\Delta t$):</label>
+                <div class="flex items-center gap-0.5">
+                  <input type="number" id="input-shock-t-num" min="-20" max="20" step="0.5" value="0.0" class="w-[4.5rem] px-1 py-0 text-right font-mono font-bold text-sky-700 bg-white border border-slate-300 rounded text-[12px]" oninput="sincronizarShock('t', this.value, true)">
+                  <span class="text-[10px] font-mono text-slate-400">%</span>
+                </div>
+              </div>
+              <input type="range" id="input-shock-t" min="-20" max="20" step="0.5" value="0" class="w-full cursor-pointer h-1 bg-slate-200 rounded-lg accent-sky-600 block mt-0.5" oninput="sincronizarShock('t', this.value, false)">
+            </div>
+
+            <!-- 3. Choque de Inversión Privada (\Delta I) -->
+            <div class="shock-card-compact bg-slate-50 rounded border border-slate-200 text-xs">
+              <div class="flex justify-between items-center">
+                <label for="input-shock-i-num" class="font-bold text-slate-700 text-[11.5px]">Inversión ($\Delta \bar{I}$):</label>
+                <div class="flex items-center gap-0.5">
+                  <input type="number" id="input-shock-i-num" min="-250" max="250" step="10" value="0" class="w-[4.5rem] px-1 py-0 text-right font-mono font-bold text-purple-700 bg-white border border-slate-300 rounded text-[12px]" oninput="sincronizarShock('i', this.value, true)">
+                  <span class="text-[10px] font-mono text-slate-400">UM</span>
+                </div>
+              </div>
+              <input type="range" id="input-shock-i" min="-250" max="250" step="10" value="0" class="w-full cursor-pointer h-1 bg-slate-200 rounded-lg accent-purple-600 block mt-0.5" oninput="sincronizarShock('i', this.value, false)">
+            </div>
+
+            <div class="pt-0.5">
+              <button onclick="fijarComoLineaBase()" class="w-full py-1 px-1 bg-slate-800 hover:bg-slate-900 text-white font-bold text-[11px] rounded transition shadow-sm flex items-center justify-center gap-1 leading-none">
+                <i class="fa-solid fa-floppy-disk text-[10px]"></i> Fijar Línea Base
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- COLUMNA 2: DIAGRAMA DE CRUZ KEYNESIANA (lg:col-span-5 xl:col-span-5 sim-col-equal-height) -->
+        <div class="lg:col-span-5 xl:col-span-5 sim-col-equal-height bg-white rounded-xl shadow-sm border border-slate-200 p-2.5 flex flex-col justify-between">
+          <div class="flex flex-col h-full justify-between">
+            <div>
+              <div class="flex flex-wrap justify-between items-center mb-1 gap-1">
+                <div>
+                  <h3 class="font-bold text-slate-900 text-xs">Cruz Keynesiana (45°)</h3>
+                  <p class="text-[9.5px] text-slate-500">Bisectriz $Y = DA$ vs. Recta de Demanda Agregada</p>
+                </div>
+                <div class="flex items-center gap-1.5 text-[9px] font-mono font-bold flex-wrap">
+                  <span class="flex items-center gap-1 text-slate-400">
+                    <span class="inline-block w-2.5 h-0.5 bg-slate-400 border-dashed"></span> 45°
+                  </span>
+                  <span id="leyenda-ghost" class="flex items-center gap-1 text-slate-400 hidden">
+                    <span class="inline-block w-2.5 h-0.5 bg-slate-300"></span> Ghost
+                  </span>
+                  <span class="flex items-center gap-1 text-blue-600">
+                    <span class="inline-block w-2.5 h-0.5 bg-blue-600"></span> DA(Y)
+                  </span>
+                  <span id="leyenda-choque" class="flex items-center gap-1 text-emerald-600 hidden">
+                    <span class="inline-block w-2.5 h-0.5 bg-emerald-600"></span> DA'(Y)
+                  </span>
+                </div>
+              </div>
+
+              <!-- Contenedor adaptativo del gráfico con altura reducida en un 30% (~285px) -->
+              <div class="relative w-full h-[285px]">
+                <canvas id="cruzKeynesianaChart"></canvas>
+              </div>
+            </div>
+
+            <!-- Diagnóstico de Equilibrio Macroeconómico Compacto -->
+            <div id="diagnostico-brecha" class="mt-1 p-1.5 rounded-lg text-[10.5px] font-medium bg-slate-50 border border-slate-200 flex items-center justify-between">
+              <!-- Inyectado dinámicamente -->
+            </div>
+          </div>
+        </div>
+
+        <!-- COLUMNA 3: TABLA COMPARATIVA "ANTES VS. DESPUÉS" (lg:col-span-4 xl:col-span-4 sim-col-equal-height) -->
+        <div class="lg:col-span-4 xl:col-span-4 sim-col-equal-height bg-white rounded-xl shadow-sm border border-slate-200 flex flex-col justify-between overflow-hidden">
+          <div class="flex flex-col h-full justify-between">
+            <div>
+              <div class="p-2 border-b border-slate-200 bg-slate-50/80 flex items-center justify-between">
+                <div>
+                  <h3 class="font-bold text-slate-900 text-xs flex items-center gap-1">
+                    <i class="fa-solid fa-table-columns text-[#9e0044]"></i>
+                    Comparativa: Antes vs. Después
+                  </h3>
+                  <p class="text-[9px] text-slate-500">Evaluación del choque macroeconómico</p>
+                </div>
+                <span class="text-[8.5px] font-mono px-1.5 py-0.5 rounded bg-white border border-slate-200 text-slate-600 font-bold">
+                  Equilibrio
+                </span>
+              </div>
+
+              <!-- Contenedor de la tabla compactada para encajar a 427px -->
+              <div class="overflow-x-auto overflow-y-auto max-h-[345px]">
+                <table class="w-full text-left font-mono">
+                  <thead class="bg-slate-900 text-white font-bold uppercase tracking-wider sticky top-0 z-10">
+                    <tr>
+                      <th class="py-1.5 px-1.5 font-sans text-[9px]">Variable</th>
+                      <th class="py-1.5 px-0.5 text-center text-[10px]">Símb.</th>
+                      <th class="py-1.5 px-1.5 text-right text-[11.5px]">Antes</th>
+                      <th class="py-1.5 px-1.5 text-right bg-slate-800 text-[11.5px]">Simulado</th>
+                      <th class="py-1.5 px-1.5 text-right text-[11.5px]">$\Delta$ Abs.</th>
+                      <th class="py-1.5 px-1.5 text-right text-[11.5px]">$\Delta$ %</th>
+                    </tr>
+                  </thead>
+                  <tbody id="tabla-comparativa-body" class="divide-y divide-slate-200 text-slate-800">
+                    <!-- Inyectado dinámicamente con reglas cromáticas estrictas verde/rojo para las 7 variables -->
+                  </tbody>
+                </table>
+              </div>
+            </div>
+
+            <div class="p-1.5 bg-slate-50 border-t border-slate-200 text-[9px] text-slate-600 flex justify-between items-center flex-wrap gap-1">
+              <span class="font-medium">Consistencia: $S^* + T^* = \bar{I} + \bar{G} + \overline{TR}$</span>
+              <span class="font-mono text-slate-400 font-bold">7 Variables</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+
+  </main>
+
+  <!-- PIE DE PÁGINA INSTITUCIONAL -->
+  <footer class="bg-slate-900 text-slate-300 mt-16 border-t border-slate-800 py-10 px-4 sm:px-6 lg:px-8 text-sm">
+    <div class="max-w-7xl mx-auto flex flex-col sm:flex-row justify-between items-center gap-5">
+      <div class="space-y-1 text-center sm:text-left">
+        <p class="text-white font-black text-sm sm:text-base tracking-wide">UNIVERSIDAD PRIVADA DEL VALLE (UNIVALLE)</p>
+        <p class="text-slate-400 text-xs sm:text-sm">Departamento de Economía · MACROECONOMIA</p>
+        <p class="text-rose-400 font-bold text-xs sm:text-sm">Cátedra del Prof. Humberto Arandia Claure - UNIVALLE</p>
+      </div>
+      <div class="text-center sm:text-right text-slate-400 space-y-1 text-xs">
+        <p>MODELOS DEL MULTIPLICADOR DEL INGRESO EN ECONOMÍAS BÁSICAS</p>
+        <p class="font-mono text-slate-500">KaTeX Math Engine (Escala Ampliada) · Chart.js Dynamic Simulation</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ========================================================================= -->
+  <!-- LÓGICA JAVASCRIPT REACTIVA INTEGRADA                                     -->
+  <!-- ========================================================================= -->
+  <script>
+    let chartInstance = null;
+    let scatterChartInstance = null;
+    let choqueActivo = false;
+    let datosChoque = null;
+    let ghostTrace = null;
+    let lineaBase = null;
+    let zenMode = false;
+
+    // Matriz de datos de las 14 economías para dispersión y regresión
+    const datasetPaises = [
+      { pais: 'Burundi', pib: 250, c: 0.94, t: 0.12, alpha: 5.79 },
+      { pais: 'Sudán del Sur', pib: 450, c: 0.93, t: 0.10, alpha: 6.13 },
+      { pais: 'Yemen', pib: 650, c: 0.95, t: 0.08, alpha: 7.94 },
+      { pais: 'India', pib: 2750, c: 0.78, t: 0.17, alpha: 2.84 },
+      { pais: 'Bolivia (Cátedra)', pib: 4200, c: 0.82, t: 0.14, alpha: 3.39 },
+      { pais: 'Vietnam', pib: 4600, c: 0.75, t: 0.19, alpha: 2.55 },
+      { pais: 'Paraguay', pib: 6200, c: 0.80, t: 0.12, alpha: 3.38 },
+      { pais: 'Colombia', pib: 7300, c: 0.74, t: 0.20, alpha: 2.45 },
+      { pais: 'Perú', pib: 8200, c: 0.72, t: 0.18, alpha: 2.44 },
+      { pais: 'Chile', pib: 16500, c: 0.68, t: 0.22, alpha: 2.13 },
+      { pais: 'Alemania', pib: 54000, c: 0.55, t: 0.40, alpha: 1.49 },
+      { pais: 'Estados Unidos', pib: 85000, c: 0.62, t: 0.28, alpha: 1.81 },
+      { pais: 'Singapur', pib: 88000, c: 0.45, t: 0.15, alpha: 1.62 },
+      { pais: 'Suiza', pib: 105000, c: 0.50, t: 0.28, alpha: 1.56 }
+    ];
+
+    window.addEventListener('DOMContentLoaded', () => {
+      renderizarKaTeX();
+      inicializarGrafico();
+      capturarLineaBase();
+      actualizarModelo();
+
+      // Cerrar modal al presionar tecla Escape
+      window.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape') {
+          cerrarModalScatter();
+        }
+      });
+    });
+
+    // MÓDULO DE REGRESIÓN LINEAL ORDINARIA (MCO) Y CÁLCULO DE R²
+    function calcularRegresionMCO(puntos) {
+      const n = puntos.length;
+      let sumX = 0, sumY = 0, sumXY = 0, sumX2 = 0, sumY2 = 0;
+
+      for (let i = 0; i < n; i++) {
+        const x = puntos[i].x;
+        const y = puntos[i].y;
+        sumX += x;
+        sumY += y;
+        sumXY += x * y;
+        sumX2 += x * x;
+        sumY2 += y * y;
+      }
+
+      const meanX = sumX / n;
+      const meanY = sumY / n;
+
+      const pendiente = (n * sumXY - sumX * sumY) / (n * sumX2 - sumX * sumX);
+      const intercepto = meanY - pendiente * meanX;
+
+      // Cálculo estricto del coeficiente de determinación R²
+      let ssTot = 0, ssRes = 0;
+      for (let i = 0; i < n; i++) {
+        const yReal = puntos[i].y;
+        const yPred = intercepto + pendiente * puntos[i].x;
+        ssTot += Math.pow(yReal - meanY, 2);
+        ssRes += Math.pow(yReal - yPred, 2);
+      }
+
+      const r2 = ssTot !== 0 ? Math.max(0, 1 - (ssRes / ssTot)) : 0;
+
+      // Puntos proyectados de la línea de regresión para graficar de min(X) a max(X)
+      const minX = Math.min(...puntos.map(p => p.x));
+      const maxX = Math.max(...puntos.map(p => p.x));
+
+      return {
+        r2,
+        lineaPuntos: [
+          { x: minX, y: intercepto + pendiente * minX },
+          { x: maxX, y: intercepto + pendiente * maxX }
+        ]
+      };
+    }
+
+    // ABRIR Y RENDERIZAR MODAL SCATTER (75% VIEWPORT)
+    function abrirModalScatter(variableClave) {
+      const modal = document.getElementById('modal-scatter-overlay');
+      const tituloModal = document.getElementById('modal-scatter-title');
+      const badgeR2 = document.getElementById('badge-r2-val');
+
+      let varLabel = '';
+      let varYDesc = '';
+
+      if (variableClave === 'c') {
+        varLabel = 'Propensión Marginal a Consumir (PMgC - c)';
+        varYDesc = 'PMgC (c)';
+      } else if (variableClave === 't') {
+        varLabel = 'Tasa Impositiva Marginal (t)';
+        varYDesc = 'Alícuota Impositiva (t)';
+      } else {
+        varLabel = 'Multiplicador del Gasto (α_G)';
+        varYDesc = 'Multiplicador del Gasto (α_G)';
+      }
+
+      tituloModal.innerHTML = `${varLabel} <span class="text-stone-700 font-semibold">vs. PIB per cápita (USD)</span>`;
+
+      // Preparar datos para el scatter plot
+      const scatterData = datasetPaises.map(d => ({
+        x: d.pib,
+        y: d[variableClave],
+        pais: d.pais
+      }));
+
+      // Calcular recta OLS y R²
+      const reg = calcularRegresionMCO(scatterData);
+      badgeR2.textContent = `R² = ${reg.r2.toFixed(3)}`;
+
+      modal.classList.remove('hidden');
+
+      // Instanciar o actualizar gráfico de dispersión con Chart.js
+      const ctx = document.getElementById('scatterChartCanvas').getContext('2d');
+      if (scatterChartInstance) {
+        scatterChartInstance.destroy();
+      }
+
+      scatterChartInstance = new Chart(ctx, {
+        type: 'scatter',
+        data: {
+          datasets: [
+            {
+              label: 'Economías (Casos de estudio)',
+              data: scatterData,
+              backgroundColor: '#9e0044',
+              borderColor: '#ffffff',
+              borderWidth: 2,
+              pointRadius: 6.5,
+              pointHoverRadius: 9,
+              pointHoverBackgroundColor: '#7d0036'
+            },
+            {
+              type: 'line',
+              label: 'Línea de Regresión MCO',
+              data: reg.lineaPuntos,
+              borderColor: '#2563eb',
+              borderWidth: 2.5,
+              borderDash: [6, 4],
+              pointRadius: 0,
+              fill: false,
+              tension: 0
+            }
+          ]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          plugins: {
+            legend: {
+              display: true,
+              position: 'top',
+              labels: {
+                font: { family: 'Inter', weight: 'bold', size: 12 },
+                color: '#334155'
+              }
+            },
+            tooltip: {
+              callbacks: {
+                label: function(context) {
+                  if (context.datasetIndex === 0) {
+                    const item = context.raw;
+                    return `${item.pais}: PIB pc = $${item.x.toLocaleString()} USD | ${varYDesc} = ${item.y}`;
+                  }
+                  return `Ajuste OLS: y = ${context.parsed.y.toFixed(3)}`;
+                }
+              }
+            }
+          },
+          scales: {
+            x: {
+              type: 'linear',
+              title: {
+                display: true,
+                text: 'PIB per cápita (USD)',
+                color: '#1e293b',
+                font: { weight: 'bold', size: 13, family: 'Inter' }
+              },
+              ticks: {
+                callback: function(val) {
+                  return '$' + val.toLocaleString();
+                },
+                color: '#64748b',
+                font: { family: 'Inter' }
+              },
+              grid: { color: '#f1f5f9' }
+            },
+            y: {
+              title: {
+                display: true,
+                text: varYDesc,
+                color: '#1e293b',
+                font: { weight: 'bold', size: 13, family: 'Inter' }
+              },
+              ticks: {
+                color: '#64748b',
+                font: { family: 'Inter' }
+              },
+              grid: { color: '#f1f5f9' }
+            }
+          }
+        }
+      });
+    }
+
+    function cerrarModalScatter() {
+      const modal = document.getElementById('modal-scatter-overlay');
+      modal.classList.add('hidden');
+      if (scatterChartInstance) {
+        scatterChartInstance.destroy();
+        scatterChartInstance = null;
+      }
+    }
+
+    function renderizarKaTeX() {
+      if (typeof renderMathInElement === 'function') {
+        renderMathInElement(document.body, {
+          delimiters: [
+            { left: '$$', right: '$$', display: true },
+            { left: '$', right: '$', display: false }
+          ],
+          throwOnError: false
+        });
+      }
+    }
+
+    // FUNCIÓN PARA GENERAR PDF DE LA DERIVACIÓN FORMAL
+    function generarPDFDerivacion() {
+      const contenidoOriginal = document.getElementById('contenido-derivacion-pdf');
+      if (!contenidoOriginal) return;
+
+      // Crear contenedor temporal para el PDF con encabezado institucional
+      const contenedorPDF = document.createElement('div');
+      contenedorPDF.style.padding = '25px 30px';
+      contenedorPDF.style.backgroundColor = '#ffffff';
+      contenedorPDF.style.fontFamily = 'Inter, sans-serif';
+      contenedorPDF.style.color = '#1e293b';
+
+      contenedorPDF.innerHTML = `
+        <div style="text-align: center; margin-bottom: 20px;">
+          <h1 style="color: #9e0044; font-size: 18px; font-weight: 900; margin: 0 0 8px 0; text-transform: uppercase; letter-spacing: 0.5px;">
+            MODELOS DEL MULTIPLICADOR DEL INGRESO EN ECONOMÍAS BÁSICAS
+          </h1>
+          <p style="font-size: 11px; font-weight: 700; color: #475569; margin: 0 0 14px 0; text-transform: uppercase; letter-spacing: 0.3px;">
+            DOCENTE: HUMBERTO ARANDIA CLAURE &nbsp;|&nbsp; MATERIA: MACROECONOMIA - UNIVALLE
+          </p>
+          <hr style="border: none; border-top: 2px solid #9e0044; margin: 0;" />
+        </div>
+        <div>
+          ${contenidoOriginal.innerHTML}
+        </div>
+      `;
+
+      const opciones = {
+        margin: [10, 10, 12, 10],
+        filename: 'Derivacion_Multiplicador_Ingreso_UNIVALLE.pdf',
+        image: { type: 'jpeg', quality: 0.98 },
+        html2canvas: { scale: 2, useCORS: true, logging: false },
+        jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
+      };
+
+      if (typeof html2pdf !== 'undefined') {
+        html2pdf().set(opciones).from(contenedorPDF).save().catch(() => {
+          imprimirFallback(contenedorPDF);
+        });
+      } else {
+        imprimirFallback(contenedorPDF);
+      }
+    }
+
+    function imprimirFallback(elemento) {
+      const ventana = window.open('', '_blank');
+      ventana.document.write(`
+        <!DOCTYPE html>
+        <html>
+        <head>
+          <title>MODELOS DEL MULTIPLICADOR DEL INGRESO EN ECONOMÍAS BÁSICAS</title>
+          <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+          <style>
+            body { font-family: sans-serif; padding: 25px; color: #1e293b; }
+            .katex { font-size: 1.15em !important; }
+            .katex-display { margin: 1em 0 !important; }
+          </style>
+        </head>
+        <body>
+          ${elemento.innerHTML}
+          <script>
+            window.onload = function() {
+              window.print();
+            };
+          <\/script>
+        </body>
+        </html>
+      `);
+      ventana.document.close();
+    }
+
+    // CAPTURA DE LÍNEA BASE PARA COMPARACIÓN
+    function capturarLineaBase() {
+      const c = parseFloat(document.getElementById('input-c').value) || 0.82;
+      const tPct = parseFloat(document.getElementById('input-t-rate').value) || 14.0;
+      const t = Math.max(0.0, Math.min(0.95, tPct / 100));
+      const c0 = parseFloat(document.getElementById('input-c0').value) || 0;
+      const i0 = parseFloat(document.getElementById('input-i0').value) || 0;
+      const g0 = parseFloat(document.getElementById('input-g0').value) || 0;
+      const t0 = parseFloat(document.getElementById('input-t0').value) || 0;
+      const tr0 = parseFloat(document.getElementById('input-tr0').value) || 0;
+
+      const a0 = c0 - (c * t0) + (c * tr0) + i0 + g0;
+      const pendiente = c * (1 - t);
+      const alpha = (1 - pendiente) > 0.005 ? (1 / (1 - pendiente)) : 100;
+      const yEq = alpha * a0;
+      const tEq = t0 + (t * yEq);
+      const ydEq = yEq - tEq + tr0;
+      const cEq = c0 + (c * ydEq);
+      const sEq = ydEq - cEq;
+      const spEq = tEq - g0 - tr0;
+
+      lineaBase = {
+        c, t, tPct, c0, i0, g0, t0, tr0,
+        a0, alpha, yEq, tEq, ydEq, cEq, sEq, spEq
+      };
+    }
+
+    function fijarComoLineaBase() {
+      // Consolidar choques activos en las variables base
+      const dG = parseFloat(document.getElementById('input-shock-g').value) || 0;
+      const dtPct = parseFloat(document.getElementById('input-shock-t').value) || 0;
+      const dI = parseFloat(document.getElementById('input-shock-i').value) || 0;
+
+      if (dG !== 0) {
+        document.getElementById('input-g0').value = parseFloat(document.getElementById('input-g0').value) + dG;
+      }
+      if (dI !== 0) {
+        document.getElementById('input-i0').value = parseFloat(document.getElementById('input-i0').value) + dI;
+      }
+      if (dtPct !== 0) {
+        const tActualPct = parseFloat(document.getElementById('input-t-rate').value) || 0;
+        const nuevaT = Math.max(0, Math.min(95, tActualPct + dtPct));
+        document.getElementById('input-t-rate').value = nuevaT.toFixed(1);
+      }
+
+      // Reiniciar sliders de choques a cero
+      restablecerChoques();
+
+      capturarLineaBase();
+      actualizarModelo();
+    }
+
+    function restablecerChoques() {
+      document.getElementById('input-shock-g').value = 0;
+      document.getElementById('input-shock-g-num').value = 0;
+      document.getElementById('input-shock-t').value = 0;
+      document.getElementById('input-shock-t-num').value = '0.0';
+      document.getElementById('input-shock-i').value = 0;
+      document.getElementById('input-shock-i-num').value = 0;
+      
+      choqueActivo = false;
+      datosChoque = null;
+      actualizarModelo();
+    }
+
+    // SINCRONIZACIÓN DE SLIDERS E INPUTS DE CHOQUE (G, t en %, I)
+    function sincronizarShock(tipo, valor, desdeInput) {
+      guardarGhostTrace();
+      let num = parseFloat(valor);
+      if (isNaN(num)) num = 0;
+
+      if (tipo === 'g') {
+        if (desdeInput) {
+          num = Math.max(-300, Math.min(300, num));
+          document.getElementById('input-shock-g').value = num;
+        } else {
+          document.getElementById('input-shock-g-num').value = num;
+        }
+      } else if (tipo === 't') {
+        if (desdeInput) {
+          num = Math.max(-20, Math.min(20, num));
+          document.getElementById('input-shock-t').value = num;
+        } else {
+          document.getElementById('input-shock-t-num').value = parseFloat(num).toFixed(1);
+        }
+      } else if (tipo === 'i') {
+        if (desdeInput) {
+          num = Math.max(-250, Math.min(250, num));
+          document.getElementById('input-shock-i').value = num;
+        } else {
+          document.getElementById('input-shock-i-num').value = num;
+        }
+      }
+
+      actualizarModelo();
+    }
+
+    // GESTIÓN DE PESTAÑAS (TABS) INTEGRADAS DENTRO DEL HEADER
+    function cambiarTab(tabId) {
+      document.querySelectorAll('.tab-pane').forEach(el => el.classList.add('hidden'));
+      document.querySelectorAll('.header-tab-btn').forEach(btn => {
+        btn.classList.remove('active-tab');
+      });
+
+      const activePane = document.getElementById('tab-' + tabId);
+      if (activePane) activePane.classList.remove('hidden');
+
+      const activeBtn = document.getElementById('tab-btn-' + tabId);
+      if (activeBtn) {
+        activeBtn.classList.add('active-tab');
+      }
+
+      if (tabId === 'simulador' && chartInstance) {
+        setTimeout(() => {
+          chartInstance.resize();
+          chartInstance.update();
+        }, 50);
+      }
+    }
+
+    // MODO AULA / ZEN
+    function toggleZenMode() {
+      zenMode = !zenMode;
+      document.body.classList.toggle('zen-mode', zenMode);
+      const exitBtn = document.getElementById('floating-exit-zen');
+      const zenBtnText = document.getElementById('zen-btn-text');
+
+      if (zenMode) {
+        cambiarTab('simulador');
+        exitBtn.classList.remove('hidden');
+        zenBtnText.textContent = 'Salir Modo Aula';
+      } else {
+        exitBtn.classList.add('hidden');
+        zenBtnText.textContent = 'Modo Aula (Zen)';
+      }
+
+      if (chartInstance) {
+        setTimeout(() => {
+          chartInstance.resize();
+          chartInstance.update();
+        }, 100);
+      }
+    }
+
+    function guardarGhostTrace() {
+      const c = parseFloat(document.getElementById('input-c').value) || 0.82;
+      const tPct = parseFloat(document.getElementById('input-t-rate').value) || 14.0;
+      const t = Math.max(0.0, Math.min(0.95, tPct / 100));
+      const c0 = parseFloat(document.getElementById('input-c0').value) || 0;
+      const i0 = parseFloat(document.getElementById('input-i0').value) || 0;
+      const g0 = parseFloat(document.getElementById('input-g0').value) || 0;
+      const t0 = parseFloat(document.getElementById('input-t0').value) || 0;
+      const tr0 = parseFloat(document.getElementById('input-tr0').value) || 0;
+
+      const a0 = c0 - (c * t0) + (c * tr0) + i0 + g0;
+      const pendiente = c * (1 - t);
+
+      ghostTrace = { a0, pendiente };
+      const el = document.getElementById('leyenda-ghost');
+      if (el) el.classList.remove('hidden');
+    }
+
+    function inicializarGrafico() {
+      const ctx = document.getElementById('cruzKeynesianaChart').getContext('2d');
+      chartInstance = new Chart(ctx, {
+        type: 'line',
+        data: {
+          labels: [],
+          datasets: [
+            {
+              label: 'Bisectriz 45° (Y = DA)',
+              data: [],
+              borderColor: '#94a3b8',
+              borderWidth: 2,
+              borderDash: [5, 5],
+              pointRadius: 0,
+              fill: false,
+              tension: 0
+            },
+            {
+              label: 'DA Previa (Ghost)',
+              data: [],
+              borderColor: '#cbd5e1',
+              borderWidth: 2,
+              borderDash: [3, 3],
+              pointRadius: 0,
+              fill: false,
+              tension: 0,
+              hidden: true
+            },
+            {
+              label: 'Demanda Agregada DA(Y)',
+              data: [],
+              borderColor: '#2563eb',
+              borderWidth: 3,
+              pointRadius: 0,
+              fill: false,
+              tension: 0
+            },
+            {
+              label: "DA'(Y) Choque",
+              data: [],
+              borderColor: '#059669',
+              borderWidth: 3,
+              borderDash: [4, 4],
+              pointRadius: 0,
+              fill: false,
+              tension: 0,
+              hidden: true
+            },
+            {
+              label: 'Equilibrio Base E*',
+              data: [],
+              backgroundColor: '#9e0044',
+              borderColor: '#ffffff',
+              borderWidth: 2,
+              pointRadius: 7,
+              pointHoverRadius: 9,
+              showLine: false
+            },
+            {
+              label: "Equilibrio Choque E'",
+              data: [],
+              backgroundColor: '#059669',
+              borderColor: '#ffffff',
+              borderWidth: 2,
+              pointRadius: 7,
+              pointHoverRadius: 9,
+              showLine: false,
+              hidden: true
+            }
+          ]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          animation: { duration: 180 },
+          interaction: {
+            mode: 'index',
+            intersect: false
+          },
+          plugins: {
+            tooltip: {
+              callbacks: {
+                label: function(context) {
+                  return `${context.dataset.label}: ${context.parsed.y.toFixed(1)} UM`;
+                }
+              }
+            },
+            legend: { display: false }
+          },
+          scales: {
+            x: {
+              type: 'linear',
+              title: {
+                display: true,
+                text: 'Ingreso / Producción Nacional (Y)',
+                color: '#475569',
+                font: { weight: 'bold', size: 12 }
+              },
+              grid: { color: '#f1f5f9' }
+            },
+            y: {
+              title: {
+                display: true,
+                text: 'Demanda Agregada Planeada (DA)',
+                color: '#475569',
+                font: { weight: 'bold', size: 12 }
+              },
+              grid: { color: '#f1f5f9' }
+            }
+          }
+        }
+      });
+    }
+
+    function actualizarModelo() {
+      const c = parseFloat(document.getElementById('input-c').value) || 0.82;
+      const tBasePct = parseFloat(document.getElementById('input-t-rate').value) || 14.0;
+      const tBase = Math.max(0.0, Math.min(0.95, tBasePct / 100));
+      const c0 = parseFloat(document.getElementById('input-c0').value) || 0;
+      const i0Base = parseFloat(document.getElementById('input-i0').value) || 0;
+      const g0Base = parseFloat(document.getElementById('input-g0').value) || 0;
+      const t0 = parseFloat(document.getElementById('input-t0').value) || 0;
+      const tr0 = parseFloat(document.getElementById('input-tr0').value) || 0;
+
+      // Choques interactivos (con dt convertido de porcentaje a decimal)
+      const dG = parseFloat(document.getElementById('input-shock-g').value) || 0;
+      const dtPct = parseFloat(document.getElementById('input-shock-t').value) || 0;
+      const dt = dtPct / 100;
+      const dI = parseFloat(document.getElementById('input-shock-i').value) || 0;
+
+      // Variables efectivas tras choque
+      const gEfectivo = g0Base + dG;
+      const iEfectivo = i0Base + dI;
+      const tEfectivo = Math.max(0.0, Math.min(0.95, tBase + dt));
+
+      if (!lineaBase) {
+        capturarLineaBase();
+      }
+
+      // Parámetros del estado simulado
+      const a0 = c0 - (c * t0) + (c * tr0) + iEfectivo + gEfectivo;
+      const pendiente = c * (1 - tEfectivo);
+      const divisor = 1 - pendiente;
+      const alpha = divisor > 0.005 ? (1 / divisor) : 100;
+      const yEq = alpha * a0;
+
+      // Cuentas nacionales simuladas
+      const tEq = t0 + (tEfectivo * yEq);
+      const ydEq = yEq - tEq + tr0;
+      const cEq = c0 + (c * ydEq);
+      const spEq = tEq - gEfectivo - tr0;
+      const sEq = ydEq - cEq;
+
+      const estadoActual = {
+        a0, alpha, yEq, tEq, ydEq, cEq, sEq, spEq
+      };
+
+      choqueActivo = (dG !== 0 || dt !== 0 || dI !== 0);
+      if (choqueActivo) {
+        datosChoque = { a0, pendiente, yEq };
+      } else {
+        datosChoque = null;
+      }
+
+      actualizarTablaComparativa(lineaBase, estadoActual);
+
+      // Diagnóstico de Equilibrio Macroeconómico
+      const diagEl = document.getElementById('diagnostico-brecha');
+      diagEl.innerHTML = `<span class="text-blue-900 font-bold flex items-center gap-1.5"><span class="w-2.5 h-2.5 rounded-full bg-blue-600"></span> Equilibrio en Mercado de Bienes:</span> <span class="text-slate-700">El ingreso de equilibrio actual es $Y^* = ${yEq.toFixed(1)}$ UM con un multiplicador $\\alpha_G = ${alpha.toFixed(2)}$ y un gasto autónomo de $A_0 = ${a0.toFixed(1)}$ UM.</span>`;
+      renderizarKaTeX();
+
+      // Cálculo de curva base para graficar
+      const a0Base = c0 - (c * t0) + (c * tr0) + i0Base + g0Base;
+      const pendienteBase = c * (1 - tBase);
+      const alphaBase = (1 - pendienteBase) > 0.005 ? (1 / (1 - pendienteBase)) : 100;
+      const yEqBase = alphaBase * a0Base;
+
+      actualizarCurvasGrafico(yEqBase, a0Base, pendienteBase);
+    }
+
+    // TABLA COMPARATIVA CON CROMÁTICA VERDE (AUMENTA) / ROJO (DISMINUYE) PARA EXACTAMENTE 7 VARIABLES
+    function actualizarTablaComparativa(base, actual) {
+      const variables = [
+        { nombre: 'Ingreso Equilibrio', simbolo: 'Y^*', base: base.yEq, act: actual.yEq },
+        { nombre: 'Multiplicador Gasto', simbolo: '\\alpha_G', base: base.alpha, act: actual.alpha },
+        { nombre: 'Consumo Privado', simbolo: 'C^*', base: base.cEq, act: actual.cEq },
+        { nombre: 'Ingreso Disponible', simbolo: 'Y_d^*', base: base.ydEq, act: actual.ydEq },
+        { nombre: 'Recaudación Total', simbolo: 'T^*', base: base.tEq, act: actual.tEq },
+        { nombre: 'Ahorro Privado', simbolo: 'S^*', base: base.sEq, act: actual.sEq },
+        { nombre: 'Superávit / Déficit', simbolo: 'SP^*', base: base.spEq, act: actual.spEq }
+      ];
+
+      const tbody = document.getElementById('tabla-comparativa-body');
+      tbody.innerHTML = '';
+
+      variables.forEach(v => {
+        const delta = v.act - v.base;
+        const pct = Math.abs(v.base) > 0.001 ? ((delta / Math.abs(v.base)) * 100) : 0;
+        const diffEpsilon = 0.005;
+
+        let claseColor = 'text-slate-700';
+        let claseCol5 = 'text-slate-500 font-normal';
+        let bgFila = '';
+        let icono = '';
+
+        if (delta > diffEpsilon) {
+          // AUMENTA -> VERDE
+          claseColor = 'text-emerald-600 font-bold';
+          claseCol5 = 'text-emerald-600 font-bold';
+          bgFila = 'hover:bg-emerald-50/50';
+          icono = '<i class="fa-solid fa-arrow-up text-emerald-500 mr-1 text-[10.5px]"></i>';
+        } else if (delta < -diffEpsilon) {
+          // DISMINUYE -> ROJO
+          claseColor = 'text-rose-600 font-bold';
+          claseCol5 = 'text-rose-600 font-bold';
+          bgFila = 'hover:bg-rose-50/50';
+          icono = '<i class="fa-solid fa-arrow-down text-rose-500 mr-1 text-[10.5px]"></i>';
+        } else {
+          // NEUTRO (SIN VARIACIÓN)
+          claseCol5 = 'text-slate-500 font-normal';
+          icono = '<i class="fa-solid fa-minus text-slate-300 mr-1 text-[10.5px]"></i>';
+        }
+
+        const tr = document.createElement('tr');
+        tr.className = `transition ${bgFila}`;
+        tr.innerHTML = `
+          <td class="py-1 px-1.5 font-sans font-semibold text-slate-900 truncate max-w-[95px] text-[10.5px]" title="${v.nombre}">${v.nombre}</td>
+          <td class="py-1 px-0.5 text-center font-bold text-slate-600 text-[10px]">$${v.simbolo}$</td>
+          <td class="py-1 px-1.5 text-right text-slate-600 text-[13.75px]">${v.base.toFixed(1)}</td>
+          <td class="py-1 px-1.5 text-right ${claseColor} bg-slate-50/60 font-black text-[13.75px]">${v.act.toFixed(1)}</td>
+          <td class="py-1 px-1.5 text-right ${claseColor} text-[13.75px] whitespace-nowrap">${icono}${(delta >= 0 ? '+' : '') + delta.toFixed(1)}</td>
+          <td class="py-1 px-1.5 text-right ${claseCol5} text-[13.75px] whitespace-nowrap">${(pct >= 0 ? '+' : '') + pct.toFixed(1)}%</td>
+        `;
+        tbody.appendChild(tr);
+      });
+    }
+
+    function actualizarCurvasGrafico(yEqBase, a0Base, pendienteBase) {
+      if (!chartInstance) return;
+
+      const yMaxRef = datosChoque ? Math.max(yEqBase, datosChoque.yEq) : yEqBase;
+      const maxEje = Math.max(yMaxRef * 1.35, 1000);
+      const pasos = 12;
+      const datos45 = [];
+      const datosDABase = [];
+
+      for (let i = 0; i <= pasos; i++) {
+        const x = (maxEje / pasos) * i;
+        datos45.push({ x: x, y: x });
+        datosDABase.push({ x: x, y: a0Base + (pendienteBase * x) });
+      }
+
+      chartInstance.data.datasets[0].data = datos45;
+      chartInstance.data.datasets[2].data = datosDABase;
+      chartInstance.data.datasets[4].data = [{ x: yEqBase, y: yEqBase }];
+
+      // Curva previa (Ghost Trace)
+      if (ghostTrace) {
+        const datosGhost = [];
+        for (let i = 0; i <= pasos; i++) {
+          const x = (maxEje / pasos) * i;
+          datosGhost.push({ x: x, y: ghostTrace.a0 + (ghostTrace.pendiente * x) });
+        }
+        chartInstance.data.datasets[1].data = datosGhost;
+        chartInstance.data.datasets[1].hidden = false;
+      } else {
+        chartInstance.data.datasets[1].hidden = true;
+      }
+
+      // Curva tras choque
+      if (choqueActivo && datosChoque) {
+        const datosDAPrima = [];
+        for (let i = 0; i <= pasos; i++) {
+          const x = (maxEje / pasos) * i;
+          datosDAPrima.push({ x: x, y: datosChoque.a0 + (datosChoque.pendiente * x) });
+        }
+        chartInstance.data.datasets[3].data = datosDAPrima;
+        chartInstance.data.datasets[3].hidden = false;
+        chartInstance.data.datasets[5].data = [{ x: datosChoque.yEq, y: datosChoque.yEq }];
+        chartInstance.data.datasets[5].hidden = false;
+        const shockLeg = document.getElementById('leyenda-choque');
+        if (shockLeg) shockLeg.classList.remove('hidden');
+      } else {
+        chartInstance.data.datasets[3].hidden = true;
+        chartInstance.data.datasets[5].hidden = true;
+        const shockLeg = document.getElementById('leyenda-choque');
+        if (shockLeg) shockLeg.classList.add('hidden');
+      }
+
+      chartInstance.options.scales.x.max = maxEje;
+      chartInstance.options.scales.y.max = maxEje;
+      chartInstance.update();
+    }
+
+    function cargarPreset(c, t, c0, i0, g0, t0, tr0, nombrePais, rowId) {
+      guardarGhostTrace();
+
+      // Actualizar alícuota inicial en el input porcentual (t * 100)
+      const tPct = (t * 100).toFixed(1);
+      document.getElementById('input-t-rate').value = tPct;
+
+      document.getElementById('input-c').value = c;
+      document.getElementById('input-c0').value = c0;
+      document.getElementById('input-i0').value = i0;
+      document.getElementById('input-g0').value = g0;
+      document.getElementById('input-t0').value = t0;
+      document.getElementById('input-tr0').value = tr0;
+
+      // Restablecer choques a 0 al cargar nuevo país
+      document.getElementById('input-shock-g').value = 0;
+      document.getElementById('input-shock-g-num').value = 0;
+      document.getElementById('input-shock-t').value = 0;
+      document.getElementById('input-shock-t-num').value = '0.0';
+      document.getElementById('input-shock-i').value = 0;
+      document.getElementById('input-shock-i-num').value = 0;
+      choqueActivo = false;
+      datosChoque = null;
+
+      document.getElementById('badge-pais').textContent = `Economía Seleccionada: ${nombrePais}`;
+
+      // Feedback visual de fila activa
+      document.querySelectorAll('.row-pais').forEach(r => r.classList.remove('row-active'));
+      const activeRow = document.getElementById(rowId);
+      if (activeRow) activeRow.classList.add('row-active');
+
+      capturarLineaBase();
+      actualizarModelo();
+
+      cambiarTab('simulador');
+    }
+
+    function resetearValores() {
+      ghostTrace = null;
+      const el = document.getElementById('leyenda-ghost');
+      if (el) el.classList.add('hidden');
+      cargarPreset(0.82, 0.14, 120, 100, 150, 40, 25, 'Bolivia (Cátedra)', 'row-bolivia');
+    }
+
+    // EXPORTACIÓN A PDF DE LA DERIVACIÓN FORMAL CON ENCABEZADO INSTITUCIONAL
+    function generarPDFDerivacion() {
+      const btn = document.getElementById('btn-generar-pdf');
+      const originalHtml = btn.innerHTML;
+      btn.disabled = true;
+      btn.innerHTML = `<i class="fa-solid fa-spinner fa-spin text-sm"></i> <span>Compilando PDF...</span>`;
+
+      // Contenedor temporal aislado para renderizar el documento PDF formal
+      const printContainer = document.createElement('div');
+      printContainer.style.padding = '25px 30px';
+      printContainer.style.background = '#ffffff';
+      printContainer.style.color = '#1e293b';
+      printContainer.style.fontFamily = 'Inter, sans-serif';
+
+      // 1. Título institucional exacto
+      const headerTitle = document.createElement('h1');
+      headerTitle.textContent = 'MODELOS DEL MULTIPLICADOR DEL INGRESO EN ECONOMÍAS BÁSICAS';
+      headerTitle.style.fontSize = '18pt';
+      headerTitle.style.fontWeight = '900';
+      headerTitle.style.textAlign = 'center';
+      headerTitle.style.color = '#9e0044';
+      headerTitle.style.margin = '0 0 6px 0';
+      headerTitle.style.letterSpacing = '-0.5px';
+
+      // 2. Subtítulo con Docente y Materia
+      const headerSubtitle = document.createElement('p');
+      headerSubtitle.textContent = 'DOCENTE: HUMBERTO ARANDIA CLAURE | MATERIA: MACROECONOMIA - UNIVALLE';
+      headerSubtitle.style.fontSize = '10pt';
+      headerSubtitle.style.fontWeight = '700';
+      headerSubtitle.style.textAlign = 'center';
+      headerSubtitle.style.color = '#475569';
+      headerSubtitle.style.margin = '0 0 12px 0';
+
+      // 3. Línea horizontal divisoria
+      const divider = document.createElement('hr');
+      divider.style.border = 'none';
+      divider.style.borderTop = '2px solid #9e0044';
+      divider.style.margin = '0 0 20px 0';
+
+      // 4. Clonar el contenido completo de la derivación formal
+      const contenidoClone = document.getElementById('contenido-derivacion-exportable').cloneNode(true);
+
+      // Ensamblar en el contenedor temporal
+      printContainer.appendChild(headerTitle);
+      printContainer.appendChild(headerSubtitle);
+      printContainer.appendChild(divider);
+      printContainer.appendChild(contenidoClone);
+
+      // Configuración de html2pdf
+      const opt = {
+        margin: [10, 10, 12, 10],
+        filename: 'Derivacion_Multiplicador_Ingreso_UNIVALLE.pdf',
+        image: { type: 'jpeg', quality: 0.98 },
+        html2canvas: {
+          scale: 2,
+          useCORS: true,
+          letterRendering: true,
+          scrollX: 0,
+          scrollY: 0
+        },
+        jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' },
+        pagebreak: { mode: ['avoid-all', 'css', 'legacy'] }
+      };
+
+      // Compilar y guardar archivo
+      html2pdf().set(opt).from(printContainer).save().then(() => {
+        btn.disabled = false;
+        btn.innerHTML = originalHtml;
+      }).catch(err => {
+        console.error('Error generando el PDF:', err);
+        // Fallback nativo si se bloquea o falla html2canvas
+        const printWindow = window.open('', '_blank');
+        if (printWindow) {
+          printWindow.document.write(`
+            <html>
+              <head>
+                <title>MODELOS DEL MULTIPLICADOR DEL INGRESO EN ECONOMÍAS BÁSICAS</title>
+                <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+                <style>
+                  body { font-family: sans-serif; padding: 25px; }
+                  h1 { color: #9e0044; text-align: center; margin-bottom: 4px; }
+                  p.sub { text-align: center; font-weight: bold; color: #475569; margin-top: 0; }
+                  hr { border-top: 2px solid #9e0044; margin-bottom: 20px; }
+                </style>
+              </head>
+              <body>
+                ${printContainer.innerHTML}
+                <script>window.onload = function() { window.print(); window.close(); }<\/script>
+              </body>
+            </html>
+          `);
+          printWindow.document.close();
+        }
+        btn.disabled = false;
+        btn.innerHTML = originalHtml;
+      });
+    }
+  </script>
+</body>
+</html>
